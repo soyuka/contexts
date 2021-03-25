@@ -1,0 +1,153 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+env:
+  COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - '8.1'
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: intl, bcmath, curl, openssl, mbstring 
+          ini-values: memory_limit=-1
+          tools: pecl, composer, php-cs-fixer
+          coverage: none
+      - name: Run PHP-CS-Fixer fix
+        run: php-cs-fixer fix --dry-run --diff --ansi
+
+  # phpstan:
+    # name: PHPStan
+    # runs-on: ubuntu-latest
+    # timeout-minutes: 20
+    # env:
+    #   APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
+    # steps:
+    #   - name: Checkout
+    #     uses: actions/checkout@v2
+    #   - name: Setup PHP
+    #     uses: shivammathur/setup-php@v2
+    #     with:
+    #       php-version: ${{ matrix.php }}
+    #       tools: pecl, composer
+    #       extensions: intl, bcmath, curl, openssl, mbstring
+    #       coverage: none
+    #       ini-values: memory_limit=-1
+      # - name: Get composer cache directory
+      #   id: composercache
+      #   run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+    #   - name: Cache dependencies
+    #     uses: actions/cache@v2
+    #     with:
+    #       path: ${{ steps.composercache.outputs.dir }}
+    #       key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+    #       restore-keys: ${{ runner.os }}-composer-
+    #   - name: Update project dependencies
+    #     run: composer update --no-interaction --no-progress --ansi
+    #     run: bin/simple-phpunit --version
+    #   - name: Cache PHPStan results
+    #     uses: actions/cache@v2
+    #     with:
+    #       path: /tmp/phpstan
+    #       key: phpstan-php${{ matrix.php }}-${{ github.sha }}
+    #       restore-keys: |
+    #         phpstan-php${{ matrix.php }}-
+    #         phpstan-
+    #     continue-on-error: true
+    #   - name: Clear test app cache
+    #     run: |
+    #       tests/Fixtures/app/console cache:clear --ansi
+    #   - name: Run PHPStan analysis
+    #     run: ./bin/phpstan analyse --no-interaction --no-progress --no-interaction --ansi
+
+  atoum:
+    name: Atoum (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - '8.1'
+      fail-fast: false
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: pecl, composer
+          extensions: intl, bcmath, curl, openssl, mbstring 
+          coverage: pcov
+          ini-values: memory_limit=-1
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Update project dependencies
+        run: composer update --no-interaction --no-progress --ansi
+      - name: Run tests
+        run: ./bin/atoum
+
+  behat:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php:
+          - '8.1'
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@v1
+      - name: Setup
+        run: |
+            export DISPLAY=:99
+            chromedriver --url-base=/wd/hub &
+            sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: pecl, composer
+          extensions: intl, bcmath, curl, openssl, mbstring 
+          coverage: pcov
+          ini-values: memory_limit=-1
+      - name: Get composer cache directory
+        id: composercache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composercache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+      - name: Update project dependencies
+        run: composer update --no-interaction --no-progress --ansi
+      - name: Run selenium
+        run: |
+            wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
+            java -jar selenium.jar &> /dev/null &
+      - name: Run php fixtures server
+        run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null & 
+      - name: Run behat tests (default)
+        run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
+      - name: Run behat tests (symfony 2)
+        run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=symfony2
