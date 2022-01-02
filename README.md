@@ -1,3 +1,43 @@
+# Updates done to original (archived) "behatch/contexts"
+
+- Updated to minimum of PHP 8 as major version (`^8.0`)
+- Removed allowing Symfony 2 & Symfony 3
+- Changed Symfony 4 & 5 to LTS versions minimum versions
+- Allowing Symfony 6
+- Fixed all deprecations from previous versions (PHP & SF)
+
+# Help wanted: 
+
+- Deprecation warnings being thrown due to this overwriting original (which is still present and loaded) when using this 
+bundle
+
+# Using this bundle 
+
+Add the following to your `composer.json`
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "git@github.com:rkeet/behatch-contexts.git"
+    }
+],
+```
+
+Change your branch dependency from 
+
+```json
+"behatch/contexts": "^3.3",
+```
+
+to
+
+```json
+"behatch/contexts": "dev-php80",
+```
+
+---
+
 Behatch contexts
 ================
 
