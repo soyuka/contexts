@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Behatch\Json;
 
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class JsonInspector
@@ -14,7 +15,7 @@ class JsonInspector
     public function __construct(string $evaluationMode)
     {
         $this->evaluationMode = $evaluationMode;
-        $this->accessor = new PropertyAccessor(false, true);
+        $this->accessor = PropertyAccess::createPropertyAccessor();
     }
 
     /**
