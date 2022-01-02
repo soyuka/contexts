@@ -27,7 +27,7 @@ Add the following to your `composer.json`
 Change your branch dependency from 
 
 ```json
-"behatch/contexts": "^3.3",
+"behatch/contexts": "dev-php80 as 3.3.0",
 ```
 
 to
