@@ -17,9 +17,9 @@
         "behat/behat": "^3.8",
         "friends-of-behat/mink-extension": "^2.5",
         "justinrainbow/json-schema": "^5.2",
-        "symfony/dom-crawler": "^4.4|^5.3",
-        "symfony/http-foundation": "^5.3",
-        "symfony/property-access": "^5.3"
+        "symfony/dom-crawler": "^4.4|^5.4|^6.0",
+        "symfony/http-foundation": "^5.4|^6.0",
+        "symfony/property-access": "^5.4|^6.0"
     },
     "require-dev": {
         "atoum/atoum": "^4.0",
