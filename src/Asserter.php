@@ -138,4 +138,12 @@ trait Asserter
             $message
         );
     }
+
+    /**
+     * @throws ExpectationException
+     */
+    protected function assertNull($value, $message = 'The value is not null'): void
+    {
+        $this->assert($value === null, $message);
+    }
 }
