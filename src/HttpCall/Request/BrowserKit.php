@@ -63,9 +63,9 @@ class BrowserKit
         $content = null,
         $headers = []
     ): \Behat\Mink\Element\DocumentElement {
-        foreach ($files as $originalName => &$file) {
+        foreach ($files as &$file) {
             if (\is_string($file)) {
-                $file = new UploadedFile($file, $originalName);
+                $file = new UploadedFile($file, basename($file));
             }
         }
         unset($file);
