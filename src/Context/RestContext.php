@@ -10,7 +10,7 @@ use Behatch\HttpCall\Request;
 
 class RestContext extends BaseContext
 {
-    protected Request $request;
+    protected Request\BrowserKit|Request\Goutte|Request $request;
 
     public function __construct(Request $request)
     {
@@ -29,7 +29,7 @@ class RestContext extends BaseContext
             $this->locatePath($url),
             [],
             $files,
-            $body !== null ? $body->getRaw() : null
+            $body?->getRaw()
         );
     }
 
@@ -49,7 +49,7 @@ class RestContext extends BaseContext
                 throw new \Exception("You must provide a 'key' and 'value' column in your table node.");
             }
 
-            if (\is_string($row['value']) && \substr($row['value'], 0, 1) === '@') {
+            if (\is_string($row['value']) && str_starts_with($row['value'], '@')) {
                 $files[$row['key']] = \rtrim(
                         $this->getMinkParameter('files_path'),
                         DIRECTORY_SEPARATOR
@@ -256,9 +256,19 @@ class RestContext extends BaseContext
     /**
      * Add an header element in a request
      *
-     * @Then I add :name header equal to :value
+     * @Given I add :name header equal to :value
      */
-    public function iAddHeaderEqualTo($name, $value): void
+    public function iAddHeaderEqualTo(string $name, $value): void
+    {
+        $this->theHeaderIsSetEqualTo($name, $value);
+    }
+
+    /**
+     * Add an header element in a request
+     *
+     * @Given the header :name is set equal to :value
+     */
+    public function theHeaderIsSetEqualTo(string $name, $value): void
     {
         $this->request->setHttpHeader($name, $value);
     }
