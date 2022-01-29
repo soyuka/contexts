@@ -12,6 +12,8 @@ use Behatch\Json\JsonSchema;
 
 class JsonContext extends BaseContext
 {
+    protected const NODE_VALUE_IS = 'The node value is `%s`';
+
     protected JsonInspector $inspector;
     protected HttpCallResultPool $httpCallResultPool;
 
@@ -59,7 +61,7 @@ class JsonContext extends BaseContext
 
         if ($actual !== $text) {
             throw new \Exception(
-                \sprintf("The node value is '%s'", \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
@@ -90,7 +92,7 @@ class JsonContext extends BaseContext
 
         if (\preg_match($pattern, $actual) === 0) {
             throw new \Exception(
-                \sprintf("The node value is '%s'", \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
@@ -106,11 +108,7 @@ class JsonContext extends BaseContext
         $json = $this->getJson();
         $actual = $this->inspector->evaluate($json, $node);
 
-        if ($actual !== null) {
-            throw new \Exception(
-                \sprintf('The node value is `%s`', \json_encode($actual, JSON_THROW_ON_ERROR))
-            );
-        }
+        $this->assertNull($actual, sprintf(self::NODE_VALUE_IS, json_encode($actual, JSON_THROW_ON_ERROR)));
     }
 
     /**
@@ -142,7 +140,7 @@ class JsonContext extends BaseContext
 
         if ($actual !== true) {
             throw new \Exception(
-                \sprintf('The node value is `%s`', \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
@@ -160,7 +158,7 @@ class JsonContext extends BaseContext
 
         if ($actual !== false) {
             throw new \Exception(
-                \sprintf('The node value is `%s`', \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
@@ -178,7 +176,7 @@ class JsonContext extends BaseContext
 
         if ($actual !== $text) {
             throw new \Exception(
-                \sprintf('The node value is `%s`', \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
@@ -196,7 +194,7 @@ class JsonContext extends BaseContext
 
         if ($actual !== (float)$number && $actual !== (int)$number) {
             throw new \Exception(
-                \sprintf('The node value is `%s`', \json_encode($actual, JSON_THROW_ON_ERROR))
+                \sprintf(self::NODE_VALUE_IS, \json_encode($actual, JSON_THROW_ON_ERROR))
             );
         }
     }
