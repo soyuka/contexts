@@ -8,7 +8,7 @@ use Behat\Behat\Context\Argument\ArgumentResolver;
 
 class HttpCallResultPoolResolver implements ArgumentResolver
 {
-    private $dependencies;
+    private array $dependencies;
 
     public function __construct(/* ... */)
     {
@@ -21,17 +21,23 @@ class HttpCallResultPoolResolver implements ArgumentResolver
 
     public function resolveArguments(\ReflectionClass $classReflection, array $arguments)
     {
-        $constructor = $classReflection->getConstructor();
-        if (null !== $constructor) {
-            $parameters = $constructor->getParameters();
-            foreach ($parameters as $parameter) {
-                $class = \PHP_VERSION_ID < 80000 ? $parameter->getClass() : ($parameter->getType() && !$parameter->getType()->isBuiltin()
-                    ? new \ReflectionClass($parameter->getType()->getName())
-                    : null
-                );
-                if (null !== $class && isset($this->dependencies[$class->name])) {
-                    $arguments[$parameter->name] = $this->dependencies[$class->name];
+        if (null !== ($constructor = $classReflection->getConstructor())) {
+            foreach ($constructor->getParameters() as $parameter) {
+                if (!($type = $parameter->getType()) instanceof \ReflectionNamedType) {
+                    continue;
                 }
+
+                if ($type->isBuiltin()) {
+                    continue;
+                }
+
+                $class = new \ReflectionClass($type->getName());
+
+                if (!isset($this->dependencies[$class->name])) {
+                    continue;
+                }
+
+                $arguments[$parameter->name] = $this->dependencies[$class->name];
             }
         }
 

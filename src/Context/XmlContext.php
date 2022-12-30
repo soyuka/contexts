@@ -90,9 +90,7 @@ class XmlContext extends BaseContext
      */
     public function theXmlElementShouldNotBeEqualTo($element, $text): void
     {
-        $this->not(function () use ($element, $text): void {
-            $this->theXmlElementShouldBeEqualTo($element, $text);
-        }, "The element '$element' value is not '$text'");
+        $this->not([$this, 'theXmlElementShouldBeEqualTo'], "The element '$element' value is not '$text'");
     }
 
     /**
@@ -104,7 +102,11 @@ class XmlContext extends BaseContext
     {
         $elements = $this->theXmlElementShouldExist("{$element}[@{$attribute}]");
 
-        $actual = $elements->item(0)->getAttribute($attribute);
+        if (!($element = $elements->item(0)) instanceof \DOMElement) {
+            throw new \Exception('Unable to retrieve the node attribute');
+        }
+
+        $actual = $element->getAttribute($attribute);
 
         if (empty($actual)) {
             throw new \Exception("The attribute value is '$actual'");

@@ -33,7 +33,7 @@ class RestContext extends BaseContext
             $this->locatePath($url),
             [],
             $files,
-            null !== $body ? $body->getRaw() : null
+            $body?->getRaw()
         );
     }
 
