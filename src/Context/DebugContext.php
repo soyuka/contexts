@@ -23,7 +23,7 @@ class DebugContext extends BaseContext
     /**
      * Pauses the scenario until the user presses a key. Useful when debugging a scenario.
      *
-     * @Then(I)put a breakpoint
+     * @Then (I )put a breakpoint
      */
     public function iPutABreakpoint(): void
     {
@@ -36,7 +36,7 @@ class DebugContext extends BaseContext
     /**
      * Saving a screenshot.
      *
-     * @When I save a screenshot in :filename
+     * @When (I )save a screenshot in :filename
      */
     public function iSaveAScreenshotIn($filename): void
     {

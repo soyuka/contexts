@@ -28,7 +28,7 @@ class SystemContext implements Context
     /**
      * Execute a command.
      *
-     * @Given(I)execute :command
+     * @Given (I )execute :command
      */
     public function iExecute($cmd): void
     {
@@ -42,7 +42,7 @@ class SystemContext implements Context
     /**
      * Execute a command from project root.
      *
-     * @Given(I)execute :command from project root
+     * @Given (I )execute :command from project root
      */
     public function iExecuteFromProjectRoot($cmd): void
     {
@@ -53,7 +53,7 @@ class SystemContext implements Context
     /**
      * Display the last command output.
      *
-     * @Then(I)display the last command output
+     * @Then (I )display the last command output
      */
     public function iDumpCommandOutput(): void
     {
@@ -180,8 +180,8 @@ class SystemContext implements Context
     }
 
     /**
-     * @Given(I)create the file :filename containing:
-     * @Given(I)create the file :filename contening:
+     * @Given (I )create the file :filename containing:
+     * @Given (I )create the file :filename contening:
      */
     public function iCreateTheFileContaining($filename, PyStringNode $string): void
     {

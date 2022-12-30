@@ -33,7 +33,7 @@ class BrowserContext extends BaseContext
     /**
      * @BeforeScenario
      *
-     * @When(I)start timing now
+     * @When (I )start timing now
      */
     public function startTimer(): void
     {
@@ -43,7 +43,7 @@ class BrowserContext extends BaseContext
     /**
      * Set login / password for next HTTP authentication.
      *
-     * @When I set basic authentication with :user and :password
+     * @When (I )set basic authentication with :user and :password
      */
     public function iSetBasicAuthenticationWithAnd($user, $password): void
     {
@@ -53,7 +53,7 @@ class BrowserContext extends BaseContext
     /**
      * Open url with various parameters.
      *
-     * @Given(I)am on url composed by:
+     * @Given (I )am on url composed by:
      */
     public function iAmOnUrlComposedBy(TableNode $tableNode)
     {
@@ -69,7 +69,7 @@ class BrowserContext extends BaseContext
     /**
      * Clicks on the nth CSS element.
      *
-     * @When(I)click on the :index :element element
+     * @When (I )click on the :index :element element
      */
     public function iClickOnTheNthElement($index, $element): void
     {
@@ -80,7 +80,7 @@ class BrowserContext extends BaseContext
     /**
      * Click on the nth specified link.
      *
-     * @When(I)follow the :index :link link
+     * @When (I )follow the :index :link link
      */
     public function iFollowTheNthLink($index, $link): void
     {
@@ -91,7 +91,7 @@ class BrowserContext extends BaseContext
     /**
      * Presses the nth specified button.
      *
-     * @When(I)press the :index :button button
+     * @When (I )press the :index :button button
      */
     public function pressTheNthButton($index, $button): void
     {
@@ -102,7 +102,7 @@ class BrowserContext extends BaseContext
     /**
      * Fills in form field with current date.
      *
-     * @When(I)fill in :field with the current date
+     * @When (I )fill in :field with the current date
      */
     public function iFillInWithTheCurrentDate($field)
     {
@@ -112,7 +112,7 @@ class BrowserContext extends BaseContext
     /**
      * Fills in form field with current date and strtotime modifier.
      *
-     * @When(I)fill in :field with the current date and modifier :modifier
+     * @When (I )fill in :field with the current date and modifier :modifier
      */
     public function iFillInWithTheCurrentDateAndModifier($field, $modifier)
     {
@@ -123,7 +123,7 @@ class BrowserContext extends BaseContext
     /**
      * Mouse over a CSS element.
      *
-     * @When(I)hover :element
+     * @When (I )hover :element
      */
     public function iHoverIShouldSeeIn($element): void
     {
@@ -137,7 +137,7 @@ class BrowserContext extends BaseContext
     /**
      * Save value of the field in parameters array.
      *
-     * @When(I)save the value of :field in the :parameter parameter
+     * @When (I )save the value of :field in the :parameter parameter
      */
     public function iSaveTheValueOfInTheParameter($field, $parameter): void
     {
@@ -153,7 +153,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the page should contains specified text after given timeout.
      *
-     * @Then(I)wait :count second(s) until I see :text
+     * @Then (I )wait :count second(s) until I see :text
      */
     public function iWaitSecondsUntilISee($count, $text): void
     {
@@ -163,7 +163,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the page should not contain specified text before given timeout.
      *
-     * @Then(I)should not see :text within :count second(s)
+     * @Then (I )should not see :text within :count second(s)
      */
     public function iDontSeeInSeconds($count, $text): void
     {
@@ -180,7 +180,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the page should contains specified text after timeout.
      *
-     * @Then(I)wait until I see :text
+     * @Then (I )wait until I see :text
      */
     public function iWaitUntilISee($text): void
     {
@@ -190,7 +190,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the element contains specified text after timeout.
      *
-     * @Then(I)wait :count second(s) until I see :text in the :element element
+     * @Then (I )wait :count second(s) until I see :text in the :element element
      */
     public function iWaitSecondsUntilISeeInTheElement($count, $text, $element): void
     {
@@ -221,7 +221,7 @@ class BrowserContext extends BaseContext
     }
 
     /**
-     * @Then(I)wait :count second(s)
+     * @Then (I )wait :count second(s)
      */
     public function iWaitSeconds($count): void
     {
@@ -231,7 +231,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the element contains specified text after timeout.
      *
-     * @Then(I)wait until I see :text in the :element element
+     * @Then (I )wait until I see :text in the :element element
      */
     public function iWaitUntilISeeInTheElement($text, $element): void
     {
@@ -241,7 +241,7 @@ class BrowserContext extends BaseContext
     /**
      * Checks, that the page should contains specified element after timeout.
      *
-     * @Then(I)wait for :element element
+     * @Then (I )wait for :element element
      */
     public function iWaitForElement($element): void
     {
@@ -251,7 +251,7 @@ class BrowserContext extends BaseContext
     /**
      * Wait for a element.
      *
-     * @Then(I)wait :count second(s) for :element element
+     * @Then (I )wait :count second(s) for :element element
      */
     public function iWaitSecondsForElement($count, $element): void
     {
@@ -288,7 +288,7 @@ class BrowserContext extends BaseContext
     }
 
     /**
-     * @Then(I)should see less than :count :element in the :index :parent
+     * @Then (I )should see less than :count :element in the :index :parent
      */
     public function iShouldSeeLessThanNElementInTheNthParent($count, $element, $index, $parent): void
     {
@@ -299,7 +299,7 @@ class BrowserContext extends BaseContext
     }
 
     /**
-     * @Then(I)should see more than :count :element in the :index :parent
+     * @Then (I )should see more than :count :element in the :index :parent
      */
     public function iShouldSeeMoreThanNElementInTheNthParent($count, $element, $index, $parent): void
     {
@@ -403,8 +403,8 @@ class BrowserContext extends BaseContext
     /**
      * Select a frame by its name or ID.
      *
-     * @When(I)switch to iframe :name
-     * @When(I)switch to frame :name
+     * @When (I )switch to iframe :name
+     * @When (I )switch to frame :name
      */
     public function switchToIFrame($name): void
     {
@@ -414,7 +414,7 @@ class BrowserContext extends BaseContext
     /**
      * Go back to main document frame.
      *
-     * @When(I)switch to main frame
+     * @When (I )switch to main frame
      */
     public function switchToMainFrame(): void
     {
@@ -424,8 +424,8 @@ class BrowserContext extends BaseContext
     /**
      * test time from when the scenario started.
      *
-     * @Then(the)total elapsed time should be :comparison than :expected seconds
-     * @Then(the)total elapsed time should be :comparison to :expected seconds
+     * @Then (the )total elapsed time should be :comparison than :expected seconds
+     * @Then (the )total elapsed time should be :comparison to :expected seconds
      */
     public function elapsedTime($comparison, $expected): void
     {
