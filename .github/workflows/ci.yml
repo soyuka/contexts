@@ -149,10 +149,6 @@ jobs:
         run: |
           wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
           java -jar selenium.jar &> /dev/null &
-      - name: Debug
-        run: |
-          chromium --version
-          chromedriver --version
       - name: Run php fixtures server
         run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null &
       - name: Run behat tests (default)
