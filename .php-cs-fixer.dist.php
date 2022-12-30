@@ -2,27 +2,11 @@
 
 declare(strict_types=1);
 
-$finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
-    ->exclude([
-        'src/Core/Bridge/Symfony/Maker/Resources/skeleton',
-        'tests/Fixtures/app/var',
-        'tests/Fixtures/Symfony/Maker',
-    ])
-    ->notPath('src/Symfony/Bundle/DependencyInjection/Configuration.php')
-    ->notPath('src/Annotation/ApiFilter.php') // temporary
-    ->notPath('src/Annotation/ApiProperty.php') // temporary
-    ->notPath('src/Annotation/ApiResource.php') // temporary
-    ->notPath('src/Annotation/ApiSubresource.php') // temporary
-    ->notPath('tests/Fixtures/TestBundle/Entity/DummyPhp8.php') // temporary
-    ->append([
-        'tests/Fixtures/app/console',
-    ]);
+$finder = PhpCsFixer\Finder::create()->in(__DIR__);
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@DoctrineAnnotation' => true,
         '@PHP71Migration' => true,
         '@PHP71Migration:risky' => true,
         '@PHPUnit60Migration:risky' => true,
@@ -33,13 +17,9 @@ return (new PhpCsFixer\Config())
         ],
         'array_indentation' => true,
         'compact_nullable_typehint' => true,
-        'doctrine_annotation_array_assignment' => [
-            'operator' => '=',
-        ],
-        'doctrine_annotation_spaces' => [
-            'after_array_assignments_equals' => false,
-            'before_array_assignments_equals' => false,
-        ],
+        'doctrine_annotation_array_assignment' => true,
+        'doctrine_annotation_braces' => true,
+        'doctrine_annotation_indentation' => true,
         'explicit_indirect_variable' => true,
         'fully_qualified_strict_types' => true,
         'logical_operators' => true,
@@ -76,16 +56,6 @@ return (new PhpCsFixer\Config())
                 'const',
             ],
             'sort_algorithm' => 'alpha',
-        ],
-        'php_unit_method_casing' => [
-            'case' => 'camel_case',
-        ],
-        'php_unit_set_up_tear_down_visibility' => true,
-        'php_unit_test_annotation' => [
-            'style' => 'prefix',
-        ],
-        'phpdoc_add_missing_param_annotation' => [
-            'only_untyped' => true,
         ],
         'phpdoc_no_alias_tag' => true,
         'phpdoc_order' => true,

@@ -28,7 +28,7 @@ class TableContext extends BaseContext
     /**
      * Checks that the specified table contains the given number of columns.
      *
-     * @Then(I)should see :count column(s) in the :table table
+     * @Then (I )should see :count column(s) in the :table table
      */
     public function iShouldSeeColumnsInTheTable($count, $table): void
     {
@@ -41,7 +41,7 @@ class TableContext extends BaseContext
     /**
      * Checks that the specified table contains the specified number of rows in its body.
      *
-     * @Then(I)should see :count rows in the :index :table table
+     * @Then (I )should see :count rows in the :index :table table
      */
     public function iShouldSeeRowsInTheNthTable($count, $index, $table): void
     {
@@ -52,7 +52,7 @@ class TableContext extends BaseContext
     /**
      * Checks that the specified table contains the specified number of rows in its body.
      *
-     * @Then(I)should see :count row(s) in the :table table
+     * @Then (I )should see :count row(s) in the :table table
      */
     public function iShouldSeeRowsInTheTable($count, $table): void
     {

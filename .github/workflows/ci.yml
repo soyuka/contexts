@@ -22,7 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: intl, bcmath, curl, openssl, mbstring 
+          extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           tools: pecl, composer, php-cs-fixer
           coverage: none
@@ -90,7 +90,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl, composer
-          extensions: intl, bcmath, curl, openssl, mbstring 
+          extensions: intl, bcmath, curl, openssl, mbstring
           coverage: pcov
           ini-values: memory_limit=-1
       - name: Get composer cache directory
@@ -117,17 +117,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: nanasess/setup-chromedriver@v1
+      - name: Fix Java version # Use JDK8 due to https://github.com/SeleniumHQ/selenium/issues/4964
+        run: |
+          sudo apt-get install openjdk-8-jre
+          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
       - name: Setup
         run: |
-            export DISPLAY=:99
-            chromedriver --url-base=/wd/hub &
-            sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: pecl, composer
-          extensions: intl, bcmath, curl, openssl, mbstring 
+          extensions: intl, bcmath, curl, openssl, mbstring
           coverage: pcov
           ini-values: memory_limit=-1
       - name: Get composer cache directory
@@ -143,10 +147,14 @@ jobs:
         run: composer update --no-interaction --no-progress --ansi
       - name: Run selenium
         run: |
-            wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
-            java -jar selenium.jar &> /dev/null &
+          wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
+          java -jar selenium.jar &> /dev/null &
+      - name: Debug
+        run: |
+          chromium --version
+          chromedriver --version
       - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null & 
+        run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null &
       - name: Run behat tests (default)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
       - name: Run behat tests (symfony 2)
