@@ -2,8 +2,21 @@
 
 namespace Behatch\HttpCall;
 
+use Behat\Mink\Element\DocumentElement;
 use Behat\Mink\Mink;
 
+/**
+ * @method DocumentElement send(string $method, string $url, array $parameters = [], array $files = [], string $content = null, array $headers = [])
+ * @method string          getMethod()
+ * @method string          getUri()
+ * @method array           getServer()
+ * @method array           getParameters()
+ * @method array           getHttpHeaders()
+ * @method string          getHttpHeader(string $name)
+ * @method void            setHttpHeader(string $name, string $value)
+ * @method string          getHttpRawHeader(string $name)
+ * @method string          getContent()
+ */
 class Request
 {
     /**
