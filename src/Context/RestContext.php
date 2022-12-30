@@ -225,7 +225,7 @@ class RestContext extends BaseContext
     /**
      * Add an header element in a request.
      *
-     * @Then I add :name header equal to :value
+     * @Then (I )add :name header equal to :value
      */
     public function iAddHeaderEqualTo($name, $value): void
     {

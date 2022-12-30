@@ -225,7 +225,7 @@ class BrowserContext extends BaseContext
      */
     public function iWaitSeconds($count): void
     {
-        usleep($count * 1000000);
+        usleep((int) ($count * 1000000));
     }
 
     /**
