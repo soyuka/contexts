@@ -56,13 +56,13 @@ class DebugContext extends BaseContext
         $this->displayProfilerLink();
 
         $suiteName = urlencode(str_replace(' ', '_', $scope->getSuite()->getName()));
-        $featureName = urlencode(str_replace(' ', '_', $scope->getFeature()->getTitle()));
+        $featureName = urlencode(str_replace(' ', '_', $scope->getFeature()->getTitle() ?? ''));
 
         if ($this->getBackground($scope)) {
             $scenarioName = 'background';
         } else {
             $scenario = $this->getScenario($scope);
-            $scenarioName = urlencode(str_replace(' ', '_', $scenario->getTitle()));
+            $scenarioName = urlencode(str_replace(' ', '_', $scenario->getTitle() ?? ''));
         }
 
         $filename = sprintf('fail_%s_%s_%s_%s.png', time(), $suiteName, $featureName, $scenarioName);
