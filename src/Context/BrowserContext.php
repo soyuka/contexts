@@ -41,7 +41,7 @@ class BrowserContext extends BaseContext
     /**
      * Set login / password for next HTTP authentication.
      *
-     * @When I set basic authentication with :user and :password
+     * @When (I )set basic authentication with :user and :password
      */
     public function iSetBasicAuthenticationWithAnd($user, $password): void
     {
@@ -223,7 +223,7 @@ class BrowserContext extends BaseContext
      */
     public function iWaitSeconds($count): void
     {
-        usleep($count * 1000000);
+        usleep((int) ($count * 1000000));
     }
 
     /**
@@ -422,8 +422,8 @@ class BrowserContext extends BaseContext
     /**
      * test time from when the scenario started.
      *
-     * @Then(the)total elapsed time should be :comparison than :expected seconds
-     * @Then(the)total elapsed time should be :comparison to :expected seconds
+     * @Then (the )total elapsed time should be :comparison than :expected seconds
+     * @Then (the )total elapsed time should be :comparison to :expected seconds
      */
     public function elapsedTime($comparison, $expected): void
     {

@@ -4,11 +4,11 @@
         <body>
             <!-- BrowserContext.php -->
             <trans-unit id="i-start-timing-now">
-                <source>(I )start timing now</source>
+                <source><![CDATA[(I )start timing now]]></source>
                 <target></target>
             </trans-unit>
             <trans-unit id="i-set-basic-authentication">
-                <source><![CDATA[I set basic authentication with :user and :password]]></source>
+                <source><![CDATA[(I )set basic authentication with :user and :password]]></source>
                 <target><![CDATA[/^Basic認証を"(?P<user>[^"]*)"と"(?P<password>[^"]*)"で設定する$/u]]></target>
             </trans-unit>
             <trans-unit id="i-am-on-url-composed-by">
@@ -44,7 +44,7 @@
                 <target><![CDATA[/^(?:|私が)"(?P<text>[^"]*)"を見るまで(?P<seconds>\d+)秒間?待つ$/u]]></target>
             </trans-unit>
             <trans-unit id="i-should-not-see-within-second">
-                <source>(I )should not see :text within :count second(s)</source>
+                <source><![CDATA[(I )should not see :text within :count second(s)]]></source>
                 <target></target>
             </trans-unit>
             <trans-unit id="i-wait-until-i-see">
@@ -120,11 +120,11 @@
                 <target><![CDATA[(私が　)メインフレームにフォーカスする]]></target>
             </trans-unit>
             <trans-unit id="the-total-elapsed-time-should-be-than-seconds">
-                <source>(the )total elapsed time should be :comparison than :expected seconds</source>
+                <source><![CDATA[(the )total elapsed time should be :comparison than :expected seconds]]></source>
                 <target></target>
             </trans-unit>
             <trans-unit id="the-total-elapsed-time-should-be-to-seconds">
-                <source>(the )total elapsed time should be :comparison to :expected seconds</source>
+                <source><![CDATA[(the )total elapsed time should be :comparison to :expected seconds]]></source>
                 <target></target>
             </trans-unit>
 
@@ -156,8 +156,8 @@
                 <target><![CDATA[/^レスポンスがJSON(?:|形式)でないこと$/u]]></target>
             </trans-unit>
             <trans-unit id="the-json-node-should-be-equal-to">
-                <source><![CDATA[the JSON node :node should be equal to :text]]></source>
-                <target><![CDATA[/^JSONのノード"(?P<node>[^"]*)"が"(?P<text>[^"]*)"と等しいこと$/u]]></target> </trans-unit>
+                <source><![CDATA[the JSON node :node should be equal to :expected]]></source>
+                <target><![CDATA[/^JSONのノード"(?P<node>[^"]*)"が"(?P<expected>[^"]*)"と等しいこと$/u]]></target> </trans-unit>
             <trans-unit id="the-json-node-should-have-n-elements">
                 <source><![CDATA[the JSON node :node should have :count element(s)]]></source>
                 <target><![CDATA[/^JSONのノード"(?P<node>[^"]*)"が(?P<nth>\d+)個の要素を持つこと$/u]]></target>
@@ -197,15 +197,15 @@
 
             <!-- RestContext.php -->
             <trans-unit id="i-send-a-request-on">
-                <source><![CDATA[I send a :method request to :url]]></source>
+                <source><![CDATA[(I )send a :method request to :url]]></source>
                 <target><![CDATA[/^(?:|私が)(?P<method>[A-Z]+)メソッドで"(?P<url>[^"]*)"へリクエストを送る$/u]]></target>
             </trans-unit>
             <trans-unit id="i-send-a-request-on-with-parameters">
-                <source><![CDATA[I send a :method request to :url with parameters:]]></source>
+                <source><![CDATA[(I )send a :method request to :url with parameters:]]></source>
                 <target><![CDATA[/^(?:|私が)(?P<method>[A-Z]+)メソッドで"(?P<url>[^"]*)"へ下記のパラメーターを伴ったリクエストを送る:$/u]]></target>
             </trans-unit>
             <trans-unit id="i-send-a-request-on-with-body">
-                <source><![CDATA[I send a :method request to :url with body:]]></source>
+                <source><![CDATA[(I )send a :method request to :url with body:]]></source>
                 <target><![CDATA[/^(?:|私が)(?P<method>[A-Z]+)メソッドで"(?P<url>[^"]*)"へ下記のボディを持ったリクエストを送る:$/u]]></target>
             </trans-unit>
             <trans-unit id="the-response-should-be-empty">
@@ -221,11 +221,11 @@
                 <target><![CDATA[/^"(?P<name>[^"]*)"ヘッダが"(?P<value>[^"]*)"と一致すること$/u]]></target>
             </trans-unit>
             <trans-unit id="the-header-should-not-be-equal-to">
-                <source>the header :name should not be equal to :value</source>
+                <source><![CDATA[the header :name should not be equal to :value]]></source>
                 <target></target>
             </trans-unit>
             <trans-unit id="i-add-header-equal-to">
-                <source><![CDATA[I add :name header equal to :value]]></source>
+                <source><![CDATA[(I )add :name header equal to :value]]></source>
                 <target><![CDATA[/^(?:|私が)"(?P<name>[^"]*)"ヘッダに"(?P<value>[^"]*)"を追加する$/u]]></target>
             </trans-unit>
             <trans-unit id="the-header-should-be-contains">
@@ -289,7 +289,7 @@
                 <target><![CDATA[/^(?:|私が)ブレークポイントを設置する$/u]]></target>
             </trans-unit>
             <trans-unit id="i-save-a-screenshot-in">
-                <source><![CDATA[I save a screenshot in :filename]]></source>
+                <source><![CDATA[(I )save a screenshot in :filename]]></source>
                 <target><![CDATA[/^(?:|私が)スクリーンショットを"(?P<filename>[^"]*)"に保存する$/u]]></target>
             </trans-unit>
 
