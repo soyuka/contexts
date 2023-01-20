@@ -11,7 +11,7 @@ class TableContext extends BaseContext
      *
      * @Then the columns schema of the :table table should match:
      */
-    public function theColumnsSchemaShouldMatch($table, TableNode $text): void
+    public function theColumnsSchemaShouldMatch(string $table, TableNode $text): void
     {
         $columnsSelector = "$table thead tr th";
         $columns = $this->getSession()->getPage()->findAll('css', $columnsSelector);
@@ -28,7 +28,7 @@ class TableContext extends BaseContext
      *
      * @Then (I )should see :count column(s) in the :table table
      */
-    public function iShouldSeeColumnsInTheTable($count, $table): void
+    public function iShouldSeeColumnsInTheTable(int $count, string $table): void
     {
         $columnsSelector = "$table thead tr th";
         $columns = $this->getSession()->getPage()->findAll('css', $columnsSelector);
@@ -41,7 +41,7 @@ class TableContext extends BaseContext
      *
      * @Then (I )should see :count rows in the :index :table table
      */
-    public function iShouldSeeRowsInTheNthTable($count, $index, $table): void
+    public function iShouldSeeRowsInTheNthTable(int $count, int $index, string $table): void
     {
         $actual = $this->countElements('tbody tr', $index, $table);
         $this->assertEquals($count, $actual);
@@ -52,7 +52,7 @@ class TableContext extends BaseContext
      *
      * @Then (I )should see :count row(s) in the :table table
      */
-    public function iShouldSeeRowsInTheTable($count, $table): void
+    public function iShouldSeeRowsInTheTable(int $count, string $table): void
     {
         $this->iShouldSeeRowsInTheNthTable($count, 1, $table);
     }
@@ -62,7 +62,7 @@ class TableContext extends BaseContext
      *
      * @Then the data in the :index row of the :table table should match:
      */
-    public function theDataOfTheRowShouldMatch($index, $table, TableNode $text): void
+    public function theDataOfTheRowShouldMatch(int $index, string $table, TableNode $text): void
     {
         $rowsSelector = "$table tbody tr";
         $rows = $this->getSession()->getPage()->findAll('css', $rowsSelector);
@@ -90,7 +90,7 @@ class TableContext extends BaseContext
      *
      * @Then the :colIndex column of the :rowIndex row in the :table table should contain :text
      */
-    public function theStColumnOfTheStRowInTheTableShouldContain($colIndex, $rowIndex, $table, $text): void
+    public function theStColumnOfTheStRowInTheTableShouldContain(int $colIndex, int $rowIndex, string $table, string $text): void
     {
         $rowSelector = "$table tbody tr";
         $rows = $this->getSession()->getPage()->findAll('css', $rowSelector);

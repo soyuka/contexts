@@ -7,12 +7,13 @@ Feature: Browser Feature
     Scenario: Testing columns
         Given I am on "/table/index.html"
 
-        Then I should see 2 columns in the "table" table
+        Then I should see 3 columns in the "table" table
 
         And the columns schema of the "table" table should match:
             | columns |
             | Lorem   |
             | Ipsum   |
+            | Integer |
 
     Scenario: Testing rows
         Given I am on "/table/index.html"
@@ -46,3 +47,4 @@ Feature: Browser Feature
         Given I am on "/table/index.html"
         Then the 1st column of the 1st row in the "table" table should contain "Lorem"
         And the 2nd column of the 1st row in the "table" table should contain "Ipsum"
+        And the 3rd column of the 1st row in the "table" table should contain "42"
