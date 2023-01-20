@@ -4,12 +4,12 @@
         <body>
             <!-- BrowserContext.php -->
             <trans-unit id="i-start-timing-now">
-                <source>(I )start timing now</source>
-                <target>(Je )démarre le compteur de temps maintenant</target>
+                <source><![CDATA[(I )start timing now]]></source>
+                <target><![CDATA[(Je )démarre le compteur de temps maintenant]]></target>
             </trans-unit>
             <trans-unit id="i-set-basic-authentication">
-                <source><![CDATA[I set basic authentication with :user and :password]]></source>
-                <target><![CDATA[je remplis l'authentification basique avec :user et :password]]></target>
+                <source><![CDATA[(I )set basic authentication with :user and :password]]></source>
+                <target><![CDATA[(je )remplis l'authentification basique avec :user et :password]]></target>
             </trans-unit>
             <trans-unit id="i-am-on-url-composed-by">
                 <source><![CDATA[(I )am on url composed by:]]></source>
@@ -24,8 +24,8 @@
                 <target><![CDATA[(je )suis le :index :link lien]]></target>
             </trans-unit>
             <trans-unit id="i-press-the-nth-button">
-                <source>(I )press the :index :button button</source>
-                <target>(Je )presse le :index :button bouton</target>
+                <source><![CDATA[(I )press the :index :button button]]></source>
+                <target><![CDATA[(Je )presse le :index :button bouton]]></target>
             </trans-unit>
             <trans-unit id="i-fill-in-with-the-current-date">
                 <source><![CDATA[(I )fill in :field with the current date]]></source>
@@ -48,8 +48,8 @@
                 <target><![CDATA[(j')attends :count seconde(s) de voir :text]]></target>
             </trans-unit>
             <trans-unit id="i-should-not-see-within-second">
-                <source>(I )should not see :text within :count second(s)</source>
-                <target>(Je )ne devrais pas voir :text durant :count seconde(s)</target>
+                <source><![CDATA[(I )should not see :text within :count second(s)]]></source>
+                <target><![CDATA[(Je )ne devrais pas voir :text durant :count seconde(s)]]></target>
             </trans-unit>
             <trans-unit id="i-wait-until-i-see">
                 <source><![CDATA[(I )wait until I see :text]]></source>
@@ -60,8 +60,8 @@
                 <target><![CDATA[(j')attends (?P<seconds>\d+) secondes? de voir :text dans l'élément (?P<element]]></target>
             </trans-unit>
             <trans-unit id="i-wait-second">
-                <source>(I )wait :count second(s)</source>
-                <target>(J')attends :count seconde(s)</target>
+                <source><![CDATA[(I )wait :count second(s)]]></source>
+                <target><![CDATA[(J')attends :count seconde(s)]]></target>
             </trans-unit>
             <trans-unit id="i-wait-until-i-see-in-the-element">
                 <source><![CDATA[(I )wait until I see :text in the :element element]]></source>
@@ -124,11 +124,11 @@
                 <target><![CDATA[(je )bascule vers le cadre principal]]></target>
             </trans-unit>
             <trans-unit id="the-total-elapsed-time-should-be-than-seconds">
-                <source>(the )total elapsed time should be :comparison than :expected seconds</source>
-                <target>(le )temps total écoulé devrait être :comparaison que :expected secondes</target>
+                <source><![CDATA[(the )total elapsed time should be :comparison than :expected seconds]]></source>
+                <target><![CDATA[(le )temps total écoulé devrait être :comparaison que :expected secondes]]></target>
             </trans-unit>
             <trans-unit id="the-total-elapsed-time-should-be-to-seconds">
-                <source>(the )total elapsed time should be :comparison to :expected seconds</source>
+                <source><![CDATA[(the )total elapsed time should be :comparison to :expected seconds]]></source>
                 <target></target>
             </trans-unit>
 
@@ -192,8 +192,8 @@
                 <target><![CDATA[la réponse ne devrait pas être du JSON]]></target>
             </trans-unit>
             <trans-unit id="the-json-node-should-be-equal-to">
-                <source><![CDATA[the JSON node :node should be equal to :text]]></source>
-                <target><![CDATA[/^le n(?:œ|oe)ud JSON "(?P<node>[^"]*)" devrait être égal à "(?P<text>[^"]*)"$/]]></target>
+                <source><![CDATA[the JSON node :node should be equal to :expected]]></source>
+                <target><![CDATA[/^le n(?:œ|oe)ud JSON "(?P<node>[^"]*)" devrait être égal à "(?P<expected>[^"]*)"$/]]></target>
             </trans-unit>
             <trans-unit id="the-json-nodes-should-be-equal-to">
                 <source><![CDATA[the JSON nodes should be equal to:]]></source>
@@ -212,8 +212,8 @@
                 <target><![CDATA[/^le n(?:œ|oe)ud JSON "(?<node>[^"]*)" devrait être faux$/]]></target>
             </trans-unit>
             <trans-unit id="the-json-node-should-be-equal-to-the-string">
-                <source><![CDATA[the JSON node :node should be equal to the string :text]]></source>
-                <target><![CDATA[/^le n(?:œ|oe)ud JSON "(?<node>[^"]*)" devrait être la chaine de caractère "(?<text>[^"]*)"$/]]></target>
+                <source><![CDATA[the JSON node :node should be equal to the string :expected]]></source>
+                <target><![CDATA[/^le n(?:œ|oe)ud JSON "(?<node>[^"]*)" devrait être la chaine de caractère "(?<expected>[^"]*)"$/]]></target>
             </trans-unit>
             <trans-unit id="the-json-node-should-be-equal-to-the-number">
                 <source><![CDATA[the JSON node :node should be equal to the number :number]]></source>
@@ -266,15 +266,15 @@
 
             <!-- RestContext.php -->
             <trans-unit id="i-send-a-request-to">
-                <source><![CDATA[I send a :method request to :url]]></source>
+                <source><![CDATA[(I )send a :method request to :url]]></source>
                 <target><![CDATA[(j')envoie une requête :method sur :url]]></target>
             </trans-unit>
             <trans-unit id="i-send-a-request-on-with-parameters">
-                <source><![CDATA[I send a :method request to :url with parameters:]]></source>
+                <source><![CDATA[(I )send a :method request to :url with parameters:]]></source>
                 <target><![CDATA[(j')envoie une requête :method sur :url avec les paramètres :]]></target>
             </trans-unit>
             <trans-unit id="i-send-a-request-on-with-body">
-                <source><![CDATA[I send a :method request to :url with body:]]></source>
+                <source><![CDATA[(I )send a :method request to :url with body:]]></source>
                 <target><![CDATA[(j')envoie une requête :method sur :url avec le contenu :]]></target>
             </trans-unit>
             <trans-unit id="the-response-should-be-equal-to">
@@ -286,11 +286,11 @@
                 <target><![CDATA[l'entête :name devrait être égal à :value]]></target>
             </trans-unit>
             <trans-unit id="the-header-should-not-be-equal-to">
-                <source>the header :name should not be equal to :value</source>
-                <target>l'entête :name ne derait pas être égale à :value</target>
+                <source><![CDATA[the header :name should not be equal to :value]]></source>
+                <target><![CDATA[l'entête :name ne devrait pas être égale à :value]]></target>
             </trans-unit>
             <trans-unit id="i-add-header-equal-to">
-                <source><![CDATA[I add :name header equal to :value]]></source>
+                <source><![CDATA[(I )add :name header equal to :value]]></source>
                 <target><![CDATA[(j')ajoute l'entête :name égale à :value]]></target>
             </trans-unit>
             <trans-unit id="the-header-should-be-contains">
@@ -358,7 +358,7 @@
                 <target><![CDATA[(je )pose un point d'arrêt]]></target>
             </trans-unit>
             <trans-unit id="i-save-a-screenshot-in">
-                <source><![CDATA[I save a screenshot in :filename]]></source>
+                <source><![CDATA[(I )save a screenshot in :filename]]></source>
                 <target><![CDATA[(je )sauvegarde une capture d'écran dans :filename]]></target>
             </trans-unit>
 

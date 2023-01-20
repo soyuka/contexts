@@ -49,7 +49,7 @@ class JsonInspector extends \atoum
     {
         $json = new \Behatch\Json\Json('{ "foo": { "bar": "foobar" } }');
         $inspector = $this->newTestedInstance('php');
-        $schema = new \mock\Behatch\Json\JsonSchema('{}');
+        $schema = new \Behatch\Json\JsonSchema('{}');
 
         $result = $inspector->validate($json, $schema);
 

@@ -1,0 +1,7 @@
+parameters:
+    level: 3
+    paths:
+        - src
+        - tests
+    scanDirectories:
+        - vendor/atoum/stubs/classes

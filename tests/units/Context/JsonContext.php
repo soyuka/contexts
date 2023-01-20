@@ -8,31 +8,26 @@ use Behatch\HttpCall\HttpCallResultPool;
 
 class JsonContext extends \atoum
 {
-    /**
-     * @var HttpCallResultPool
-     */
-    private $httpCallResultPool;
+    private HttpCallResultPool $httpCallResultPool;
 
     public function beforeTestMethod($methodName): void
     {
-        $this->mockGenerator->orphanize('__construct');
-        $httpCallResult = $this->newMockInstance(HttpCallResult::class);
-        $httpCallResult->getMockController()->getValue = json_encode([
-            'a string node' => 'some string',
-            'another string node' => 'some other string',
-            'a null node' => null,
-            'a true node' => true,
-            'a false node' => false,
-            'a number node' => 3,
-            'an array node' => [
-                'one',
-                'two',
-                'three',
-            ],
-        ]);
-
-        $this->httpCallResultPool = $this->newMockInstance(HttpCallResultPool::class);
-        $this->httpCallResultPool->getMockController()->getResult = $httpCallResult;
+        $this->httpCallResultPool = new HttpCallResultPool();
+        $this->httpCallResultPool->store(
+            new HttpCallResult(json_encode([
+                'a string node' => 'some string',
+                'another string node' => 'some other string',
+                'a null node' => null,
+                'a true node' => true,
+                'a false node' => false,
+                'a number node' => 3,
+                'an array node' => [
+                    'one',
+                    'two',
+                    'three',
+                ],
+            ], \JSON_THROW_ON_ERROR))
+        );
     }
 
     public function testTheJsonNodeShouldBeEqualTo(): void

@@ -311,9 +311,7 @@ class JsonContext extends BaseContext
      */
     public function theJsonShouldBeInvalidAccordingToThisSchema(PyStringNode $schema): void
     {
-        $this->not(function () use ($schema) {
-            return $this->theJsonShouldBeValidAccordingToThisSchema($schema);
-        }, 'Expected to receive invalid json, got valid one');
+        $this->not([$this, 'theJsonShouldBeValidAccordingToThisSchema'], 'Expected to receive invalid json, got valid one');
     }
 
     /**
@@ -339,9 +337,7 @@ class JsonContext extends BaseContext
     {
         $this->checkSchemaFile($filename);
 
-        $this->not(function () use ($filename) {
-            return $this->theJsonShouldBeValidAccordingToTheSchema($filename);
-        }, 'The schema was valid');
+        $this->not([$this, 'theJsonShouldBeValidAccordingToTheSchema'], 'The schema was valid');
     }
 
     /**
@@ -402,9 +398,7 @@ class JsonContext extends BaseContext
      */
     public function theJsonShouldNotBeValidAccordingToTheSwaggerSchema($dumpPath, $schemaName): void
     {
-        $this->not(function () use ($dumpPath, $schemaName) {
-            return $this->theJsonShouldBeValidAccordingToTheSwaggerSchema($dumpPath, $schemaName);
-        }, 'JSON Schema matches but it should not');
+        $this->not([$this, 'theJsonShouldBeValidAccordingToTheSwaggerSchema'], 'JSON Schema matches but it should not');
     }
 
     protected function getJson()

@@ -22,7 +22,7 @@ class RestContext extends BaseContext
     /**
      * Sends a HTTP request.
      *
-     * @Given I send a :method request to :url
+     * @Given (I )send a :method request to :url
      */
     public function iSendARequestTo($method, $url, PyStringNode $body = null, $files = [])
     {
@@ -31,14 +31,14 @@ class RestContext extends BaseContext
             $this->locatePath($url),
             [],
             $files,
-            null !== $body ? $body->getRaw() : null
+            $body?->getRaw()
         );
     }
 
     /**
      * Sends a HTTP request with a some parameters.
      *
-     * @Given I send a :method request to :url with parameters:
+     * @Given (I )send a :method request to :url with parameters:
      */
     public function iSendARequestToWithParameters($method, $url, TableNode $data)
     {
@@ -68,7 +68,7 @@ class RestContext extends BaseContext
     /**
      * Sends a HTTP request with a body.
      *
-     * @Given I send a :method request to :url with body:
+     * @Given (I )send a :method request to :url with body:
      */
     public function iSendARequestToWithBody($method, $url, PyStringNode $body)
     {
@@ -223,7 +223,7 @@ class RestContext extends BaseContext
     /**
      * Add an header element in a request.
      *
-     * @Then I add :name header equal to :value
+     * @Then (I )add :name header equal to :value
      */
     public function iAddHeaderEqualTo($name, $value): void
     {
