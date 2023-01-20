@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\Context;
 
 use Behat\Behat\Hook\Scope\AfterStepScope;
@@ -23,7 +21,7 @@ class DebugContext extends BaseContext
     /**
      * Pauses the scenario until the user presses a key. Useful when debugging a scenario.
      *
-     * @Then(I)put a breakpoint
+     * @Then (I )put a breakpoint
      */
     public function iPutABreakpoint(): void
     {

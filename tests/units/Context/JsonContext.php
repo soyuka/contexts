@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\Tests\Units\Context;
 
 use Behat\Gherkin\Node\TableNode;

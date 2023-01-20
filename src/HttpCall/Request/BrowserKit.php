@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\HttpCall\Request;
 
 use Behat\Mink\Driver\Goutte\Client as GoutteClient;

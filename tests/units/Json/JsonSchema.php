@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\Tests\Units\Json;
 
 class JsonSchema extends \atoum

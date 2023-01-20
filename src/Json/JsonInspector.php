@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\Json;
 
 use Symfony\Component\PropertyAccess\PropertyAccessor;

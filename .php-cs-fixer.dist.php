@@ -19,6 +19,11 @@ $finder = PhpCsFixer\Finder::create()
         'tests/Fixtures/app/console',
     ]);
 
+$defaultIgnoreTags = (new PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationSpacesFixer())
+    ->getConfigurationDefinition()
+    ->resolve([])['ignored_tags'] ?? []
+;
+
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
@@ -39,6 +44,12 @@ return (new PhpCsFixer\Config())
         'doctrine_annotation_spaces' => [
             'after_array_assignments_equals' => false,
             'before_array_assignments_equals' => false,
+            'ignored_tags' => array_merge($defaultIgnoreTags, [
+                // Behat step tags
+                'Given',
+                'When',
+                'Then',
+            ]),
         ],
         'explicit_indirect_variable' => true,
         'fully_qualified_strict_types' => true,
@@ -100,6 +111,7 @@ return (new PhpCsFixer\Config())
                 'property',
             ],
         ],
+        'declare_strict_types' => false,
     ])
     ->setFinder($finder);
 

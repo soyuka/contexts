@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Behatch\HttpCall;
 
 use Behat\Behat\Context\Argument\ArgumentResolver;
