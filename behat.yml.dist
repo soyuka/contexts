@@ -18,10 +18,11 @@ default:
     extensions:
         Behat\MinkExtension:
             base_url: 'http://localhost:8080'
-            files_path: 'tests/fixtures/files'
+            files_path: '%paths.base%/tests/fixtures/files'
             goutte: ~
             selenium2:
                 capabilities:
+                    browser: 'chrome'
                     chrome:
                         switches:
                             - "--headless"
@@ -35,7 +36,7 @@ default:
                 default:
                     goutte: ~
                 symfony2:
-                    goutte: ~
+                    selenium2: ~
         Behatch\Extension: ~
 
 symfony2:

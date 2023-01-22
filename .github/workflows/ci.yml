@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -41,7 +41,7 @@ jobs:
        APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
      steps:
        - name: Checkout
-         uses: actions/checkout@v2
+         uses: actions/checkout@v3
        - name: Setup PHP
          uses: shivammathur/setup-php@v2
          with:
@@ -54,7 +54,7 @@ jobs:
          id: composercache
          run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
        - name: Cache dependencies
-         uses: actions/cache@v2
+         uses: actions/cache@v3
          with:
            path: ${{ steps.composercache.outputs.dir }}
            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -62,7 +62,7 @@ jobs:
        - name: Update project dependencies
          run: composer update --no-interaction --no-progress --ansi
        - name: Cache PHPStan results
-         uses: actions/cache@v2
+         uses: actions/cache@v3
          with:
            path: /tmp/phpstan
            key: phpstan-php${{ matrix.php }}-${{ github.sha }}
@@ -84,7 +84,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -97,7 +97,7 @@ jobs:
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -108,20 +108,16 @@ jobs:
         run: ./bin/atoum
 
   behat:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         php:
           - '8.1'
       fail-fast: false
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: nanasess/setup-chromedriver@v1
-      - name: Fix Java version # Use JDK8 due to https://github.com/SeleniumHQ/selenium/issues/4964
-        run: |
-          sudo apt-get install openjdk-8-jre
-          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-      - name: Setup
+      - name: Setup Chromedriver
         run: |
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
@@ -138,7 +134,7 @@ jobs:
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -146,11 +142,42 @@ jobs:
       - name: Update project dependencies
         run: composer update --no-interaction --no-progress --ansi
       - name: Run selenium
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+          PATH: ${{ env.JAVA_HOME_8_X64 }}/bin:${{ env.PATH }}
+        run: java -jar $SELENIUM_JAR_PATH standalone &
+      - name: Info
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
+          PATH: ${{ env.JAVA_HOME_8_X64 }}/bin:${{ env.PATH }}
         run: |
-          wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
-          java -jar selenium.jar &> /dev/null &
+          whereis snap
+          whereis java
+          java -version
+          chromium --version
+          chromedriver --version
+          google-chrome --version
+          curl localhost:4444 -I
       - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null &
+        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
+      - name: Wait for Selenium
+        uses: smurfpandey/wait-for-it@v1.0
+        with:
+          host: localhost
+          port: 4444
+          timeout: 10
+      - name: Wait for Chromedriver
+        uses: smurfpandey/wait-for-it@v1.0
+        with:
+          host: localhost
+          port: 9515
+          timeout: 10
+      - name: Wait for PHP server
+        uses: smurfpandey/wait-for-it@v1.0
+        with:
+          host: localhost
+          port: 8080
+          timeout: 10
       - name: Run behat tests (default)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
       - name: Run behat tests (symfony 2)
