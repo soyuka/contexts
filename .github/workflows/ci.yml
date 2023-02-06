@@ -117,9 +117,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: nanasess/setup-chromedriver@v1
-      - name: Setup Chromedriver
+      - name: Setup
         run: |
-          export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: Setup PHP
@@ -146,6 +145,20 @@ jobs:
           JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
           PATH: ${{ env.JAVA_HOME_8_X64 }}/bin:${{ env.PATH }}
         run: java -jar $SELENIUM_JAR_PATH standalone &
+      - name: Wait for selenium
+        uses: smurfpandey/wait-for-it@v1.0
+        with:
+          host: localhost
+          port: 4444
+          timeout: 10
+      - name: Run php fixtures server
+        run: php -S localhost:8080 -t tests/fixtures/www &
+      - name: Wait for fixtures server
+        uses: smurfpandey/wait-for-it@v1.0
+        with:
+          host: localhost
+          port: 8080
+          timeout: 10
       - name: Info
         env:
           JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
@@ -158,26 +171,6 @@ jobs:
           chromedriver --version
           google-chrome --version
           curl localhost:4444 -I
-      - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
-      - name: Wait for Selenium
-        uses: smurfpandey/wait-for-it@v1.0
-        with:
-          host: localhost
-          port: 4444
-          timeout: 10
-      - name: Wait for Chromedriver
-        uses: smurfpandey/wait-for-it@v1.0
-        with:
-          host: localhost
-          port: 9515
-          timeout: 10
-      - name: Wait for PHP server
-        uses: smurfpandey/wait-for-it@v1.0
-        with:
-          host: localhost
-          port: 8080
-          timeout: 10
       - name: Run behat tests (default)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
       - name: Run behat tests (symfony 2)
