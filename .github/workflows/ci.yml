@@ -145,24 +145,9 @@ jobs:
         run: composer update --no-interaction --no-progress --ansi
       - name: Run selenium
         run: java -jar $SELENIUM_JAR_PATH standalone &
-      - name: Info
-        run: |
-          whereis snap
-          whereis java
-          java -version
-          chromium --version
-          chromedriver --version
-          google-chrome --version
-          curl localhost:4444 -I
       - name: Run php fixtures server
         run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
       - name: Run behat tests (default)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
       - name: Run behat tests (symfony 2)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=symfony2
-      - name: Archive logs
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: logs
-          path: '*.log'

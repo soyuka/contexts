@@ -9,12 +9,13 @@
     シナリオ: Testing columns
         前提 "/table/index.html" を表示している
 
-        ならば テーブル"table"が2個のカラムを持つこと
+        ならば テーブル"table"が3個のカラムを持つこと
 
         かつ テーブル"table"のカラムスキーマが下記と一致すること:
             | columns |
             | Lorem   |
             | Ipsum   |
+            | Integer |
 # ならば ブレークポイントを設置する
 
     シナリオ: Testing rows
