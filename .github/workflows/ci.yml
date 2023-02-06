@@ -114,13 +114,28 @@ jobs:
         php:
           - '8.1'
       fail-fast: false
+    env:
+      DISPLAY: ':99'
+    #      SELENIUM_VERSION: '3.12.0'
     steps:
       - uses: actions/checkout@v3
       - uses: nanasess/setup-chromedriver@v1
+      #      - name: Fix Java version # Use JDK8 due to https://github.com/SeleniumHQ/selenium/issues/4964
+      #        run: |
+      #          sudo apt-get install openjdk-8-jre
+      #          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
       - name: Setup
         run: |
-          chromedriver --url-base=/wd/hub &
+          export DISPLAY=:99
+          chromedriver --log-path=./chromedriver.log --log-level=ALL --url-base=/wd/hub &
           sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+      #      - name: Setup (from Behatch)
+      #        run: Xvfb $DISPLAY -extension RANDR &> /dev/null &
+      #      - name: Setup (from Behatch)
+      #        run: |
+      #          LATEST_CHROMEDRIVER_VERSION=`curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+      #          wget --no-verbose https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+      #          unzip chromedriver_linux64.zip -d ~/bin
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -140,25 +155,22 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Update project dependencies
         run: composer update --no-interaction --no-progress --ansi
+      #      - name: Cache Selenium
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: bin/selenium.jar
+      #          key: ${{ runner.os }}-selenium-${{ env.SELENIUM_VERSION }}
+      #          restore-keys: ${{ runner.os }}-selenium-
+      #      - name: Run selenium
+      #        run: |
+      #          [ ! -f bin/selenium.jar ] && wget "https://selenium-release.storage.googleapis.com/${SELENIUM_VERSION%%.[[:digit:]]}/selenium-server-standalone-${SELENIUM_VERSION}.jar" -O bin/selenium.jar
+      #          java -jar bin/selenium.jar &> ./selenium.log &n selenium
       - name: Run selenium
         env:
           JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
           PATH: ${{ env.JAVA_HOME_8_X64 }}/bin:${{ env.PATH }}
-        run: java -jar $SELENIUM_JAR_PATH standalone &
-      - name: Wait for selenium
-        uses: smurfpandey/wait-for-it@v1.0
-        with:
-          host: localhost
-          port: 4444
-          timeout: 10
-      - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &
-      - name: Wait for fixtures server
-        uses: smurfpandey/wait-for-it@v1.0
-        with:
-          host: localhost
-          port: 8080
-          timeout: 10
+        run: |
+          java -jar $SELENIUM_JAR_PATH standalone &
       - name: Info
         env:
           JAVA_HOME: ${{ env.JAVA_HOME_8_X64 }}
@@ -171,7 +183,15 @@ jobs:
           chromedriver --version
           google-chrome --version
           curl localhost:4444 -I
+      - name: Run php fixtures server
+        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
       - name: Run behat tests (default)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
       - name: Run behat tests (symfony 2)
         run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=symfony2
+      - name: Archive logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: '*.log'
