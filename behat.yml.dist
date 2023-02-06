@@ -7,12 +7,12 @@ default:
                 - behatch:context:browser:
                     timeout: 1
                 - behatch:context:debug:
-                    screenshotDir: "."
+                    screenshotDir: '.'
                 - behatch:context:json:
                     evaluationMode: javascript
                 - behatch:context:rest
                 - behatch:context:system:
-                    root: "."
+                    root: '.'
                 - behatch:context:table
                 - behatch:context:xml
     extensions:
@@ -25,11 +25,11 @@ default:
                     browser: 'chrome'
                     chrome:
                         switches:
-                            - "--headless"
-                            - "--disable-gpu"
-                            - "--no-sandbox"
+                            - '--headless'
+                            - '--disable-gpu'
+                            - '--no-sandbox'
                     extra_capabilities:
-                        "goog:chromeOptions":
+                        chromeOptions: # "goog:chromeOptions"
                             w3c: false
             browser_name: 'chrome'
             sessions:

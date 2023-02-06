@@ -404,7 +404,7 @@ class BrowserContext extends BaseContext
      * @When (I )switch to iframe :name
      * @When (I )switch to frame :name
      */
-    public function switchToIFrame(string $name): void
+    public function switchToIFrame($name): void
     {
         $this->getSession()->switchToIFrame($name);
     }
