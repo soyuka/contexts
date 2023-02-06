@@ -19,26 +19,22 @@ default:
         Behat\MinkExtension:
             base_url: 'http://localhost:8080'
             files_path: '%paths.base%/tests/fixtures/files'
-            goutte: ~
             browser_name: 'chrome'
-            selenium2:
-                capabilities:
-                    browser: 'chrome'
-                    browserName: 'Chrome'
-                    chrome:
-                        switches:
-                            - '--headless'
-                            - '--disable-gpu'
-                            - '--no-sandbox'
-                            - '--w3c-mode'
-#                    extra_capabilities:
-#                        "goog:chromeOptions":
-#                            w3c: false
             sessions:
                 default:
                     goutte: ~
                 symfony2:
-                    selenium2: ~
+                    selenium2:
+                        capabilities:
+                            browser: 'chrome'
+                            chrome:
+                                switches:
+                                    - '--headless'
+                                    - '--disable-gpu'
+                                    - '--no-sandbox'
+                            extra_capabilities:
+                                "goog:chromeOptions":
+                                    w3c: false
         Behatch\Extension: ~
 
 symfony2:
