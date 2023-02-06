@@ -120,6 +120,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: nanasess/setup-chromedriver@v1
+        with:
+          chromedriver-version: '75.0.3770.8'
       - name: Setup
         run: |
           chromedriver --url-base=/wd/hub &
