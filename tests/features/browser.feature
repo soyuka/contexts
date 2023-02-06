@@ -8,6 +8,7 @@ Feature: Browser Feature
         Given I am on "/index.html"
         Then I should see "Congratulations, you've correctly set up your apache environment."
 
+    @statusCode
     Scenario: Basic authentication
         Given I am on "/browser/auth.php"
         Then the response status code should be 401

@@ -9,6 +9,7 @@
         Пусть я на странице "/index.html"
         Тогда я должен видеть "Congratulations, you've correctly set up your apache environment."
 
+    @statusCode
     Сценарий: Basic-аутентификация
         Пусть я на странице "/browser/auth.php"
         Тогда код ответа сервера должен быть 401

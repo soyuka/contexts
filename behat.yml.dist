@@ -23,7 +23,7 @@ default:
             sessions:
                 default:
                     goutte: ~
-                symfony2:
+                chrome:
                     selenium2:
                         capabilities:
                             browser: 'chrome'
@@ -37,7 +37,7 @@ default:
                                     w3c: false
         Behatch\Extension: ~
 
-symfony2:
+selenium:
     extensions:
         Behat\MinkExtension:
-            default_session: symfony2
+            default_session: chrome

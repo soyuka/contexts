@@ -9,6 +9,7 @@ Funcionalidade: Browser
     Quando estou em "/index.html"
     Então devo ver "Congratulations, you've correctly set up your apache environment."
 
+  @statusCode
   Cenário: Basic Authentication
     Quando Eu estou em "/browser/auth.php"
     Então o código de status da resposta deve ser 401
