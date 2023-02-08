@@ -1,4 +1,5 @@
 #language: fr
+@rest
 Fonctionnalité:
 
     Scénario:

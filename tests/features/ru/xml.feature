@@ -1,4 +1,5 @@
 #language: ru
+@xml
 Функционал: Тестирование XmlContext
 
     Контекст:

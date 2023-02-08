@@ -1,4 +1,5 @@
 #language: pt
+@rest
 Funcionalidade: Testando o RESTContext
 
   Cenário: Testando headers

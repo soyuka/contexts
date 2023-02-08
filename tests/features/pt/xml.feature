@@ -1,4 +1,5 @@
 #language: pt
+@xml
 Funcionalidade: Testando o XmlContext
 
   Contexto:

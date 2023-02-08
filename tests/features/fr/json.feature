@@ -1,4 +1,5 @@
 #language: fr
+@json
 Fonctionnalité:
 
   Scénario:

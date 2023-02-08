@@ -2,13 +2,18 @@ name: CI
 
 on:
   push:
+    branches:
+      - 'main'
   pull_request:
+    branches:
+      - 'main'
 
 env:
   COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   php-cs-fixer:
+    name: PHP-CS-Fixer
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -74,7 +79,7 @@ jobs:
          run: phpstan analyse --no-interaction --no-progress --no-interaction --ansi
 
   atoum:
-    name: Atoum (PHP ${{ matrix.php }})
+    name: Atoum
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -110,11 +115,15 @@ jobs:
   # See https://github.com/SeleniumHQ/selenium/issues/9044
   # See
   behat:
+    name: Behat
     runs-on: ubuntu-22.04
     strategy:
       matrix:
         php:
           - '8.1'
+        profile:
+          - 'default'
+          - 'symfony2'
       fail-fast: false
     env:
       DISPLAY: ':99'
@@ -148,7 +157,5 @@ jobs:
         run: java -jar $SELENIUM_JAR_PATH standalone &
       - name: Run php fixtures server
         run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
-      - name: Run behat tests (default)
-        run: ./bin/behat -fprogress --tags="~@user" --no-interaction --profile=default
-      - name: Run behat tests (symfony 2)
-        run: ./bin/behat -fprogress --tags="~@user&&~@statusCode" --no-interaction --profile=selenium # ~@statusCode because Selenium2Driver does not support status code
+      - name: Run behat tests
+        run: ./bin/behat -fprogress --no-interaction --profile=${{ matrix.profile }}
