@@ -142,6 +142,10 @@ jobs:
           extensions: intl, bcmath, curl, openssl, mbstring
           coverage: pcov
           ini-values: memory_limit=-1
+      - name: Run selenium
+        run: java -jar $SELENIUM_JAR_PATH standalone &
+      - name: Run php fixtures server
+        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
       - name: Get composer cache directory
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -153,9 +157,5 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Update project dependencies
         run: composer update --no-interaction --no-progress --ansi
-      - name: Run selenium
-        run: java -jar $SELENIUM_JAR_PATH standalone &
-      - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
       - name: Run behat tests
         run: ./bin/behat -fprogress --no-interaction --profile=${{ matrix.profile }}
