@@ -1,3 +1,4 @@
+@rest
 Feature: Testing RESTContext
 
     Scenario: Testing headers

@@ -38,10 +38,7 @@ class JsonContext extends BaseContext
      */
     public function theResponseShouldNotBeInJson(): void
     {
-        $this->not(
-            [$this, 'theResponseShouldBeInJson'],
-            'The response is in JSON'
-        );
+        $this->not(fn () => $this->theResponseShouldBeInJson(), 'The response is in JSON');
     }
 
     /**
@@ -311,7 +308,7 @@ class JsonContext extends BaseContext
      */
     public function theJsonShouldBeInvalidAccordingToThisSchema(PyStringNode $schema): void
     {
-        $this->not([$this, 'theJsonShouldBeValidAccordingToThisSchema'], 'Expected to receive invalid json, got valid one');
+        $this->not(fn () => $this->theJsonShouldBeValidAccordingToThisSchema($schema), 'Expected to receive invalid json, got valid one');
     }
 
     /**
@@ -337,7 +334,7 @@ class JsonContext extends BaseContext
     {
         $this->checkSchemaFile($filename);
 
-        $this->not([$this, 'theJsonShouldBeValidAccordingToTheSchema'], 'The schema was valid');
+        $this->not(fn () => $this->theJsonShouldBeValidAccordingToTheSchema($filename), 'The schema was valid');
     }
 
     /**
@@ -398,7 +395,7 @@ class JsonContext extends BaseContext
      */
     public function theJsonShouldNotBeValidAccordingToTheSwaggerSchema($dumpPath, $schemaName): void
     {
-        $this->not([$this, 'theJsonShouldBeValidAccordingToTheSwaggerSchema'], 'JSON Schema matches but it should not');
+        $this->not(fn () => $this->theJsonShouldBeValidAccordingToTheSwaggerSchema($dumpPath, $schemaName), 'JSON Schema matches but it should not');
     }
 
     protected function getJson()

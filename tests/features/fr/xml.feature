@@ -1,4 +1,5 @@
 #language: fr
+@xml
 Fonctionnalité:
 
     Contexte:

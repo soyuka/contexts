@@ -25,7 +25,9 @@ class BrowserContext extends BaseContext
      */
     public function closeBrowser(): void
     {
-        $this->getSession()->stop();
+        if ($this->getMink()->isSessionStarted()) {
+            $this->getSession()->stop();
+        }
     }
 
     /**

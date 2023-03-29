@@ -1,4 +1,5 @@
 #language: ru
+@json
 Функционал: Тестирование JSONContext
 
     Сценарий: Я JSON ?

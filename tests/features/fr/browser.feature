@@ -5,6 +5,7 @@ Fonctionnalité:
         Étant donné je suis sur "/index.html"
         Alors je devrais voir "Congratulations, you've correctly set up your apache environment."
 
+    @statusCode
     Scénario:
         Étant donnée je suis sur "/browser/auth.php"
         Alors le code de status de la réponse devrait être 401

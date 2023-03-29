@@ -25,7 +25,7 @@ class XmlContext extends BaseContext
     public function theResponseShouldNotBeInXml(): void
     {
         $this->not(
-            [$this, 'theResponseShouldBeInXml'],
+            fn () => $this->theResponseShouldBeInXml(),
             'The response is in XML'
         );
     }
@@ -88,7 +88,7 @@ class XmlContext extends BaseContext
      */
     public function theXmlElementShouldNotBeEqualTo($element, $text): void
     {
-        $this->not([$this, 'theXmlElementShouldBeEqualTo'], "The element '$element' value is not '$text'");
+        $this->not(fn () => $this->theXmlElementShouldBeEqualTo($element, $text), "The element '$element' value is not '$text'");
     }
 
     /**

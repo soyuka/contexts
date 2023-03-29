@@ -11,6 +11,7 @@
        前提 "/index.html" を表示している
         ならば　画面に "Congratulations, you've correctly set up your apache environment." と表示されていること
 
+    @statusCode
     シナリオ: Basic authentication
        前提 "/browser/auth.php" を表示している
         ならば レスポンスコードが 401 であること

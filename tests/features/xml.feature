@@ -1,3 +1,4 @@
+@xml
 Feature: Testing XmlContext
 
     Background:

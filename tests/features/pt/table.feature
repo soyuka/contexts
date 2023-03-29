@@ -8,12 +8,13 @@ Funcionalidade: Table
   Cenário: Testando colunas
     Quando estou em "/table/index.html"
 
-    Então devo ver 2 colunas na tabela "table"
+    Então devo ver 3 colunas na tabela "table"
 
     E as colunas da tabela "table" devem ser:
       | columns |
       | Lorem   |
       | Ipsum   |
+      | Integer |
 
   Cenário: Testando linhas
     Quando estou em "/table/index.html"

@@ -8,12 +8,13 @@ Fonctionnalité:
   Scénario:
     Étant donné je suis sur "/table/index.html"
 
-    Alors je devrais voir 2 colonnes dans le tableau "table"
+    Alors je devrais voir 3 colonnes dans le tableau "table"
 
     Et le schéma des colonnes du tableau "table" devrait correspondre à :
       | columns |
       | Lorem   |
       | Ipsum   |
+      | Integer |
 
   Scénario:
     Étant donné je suis sur "/table/index.html"

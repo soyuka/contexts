@@ -1,4 +1,5 @@
 #language: pt
+@json
 Funcionalidade: Testando o JSONContext
 
   Cenário: Eu sou um JSON?

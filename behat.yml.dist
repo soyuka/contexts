@@ -7,38 +7,46 @@ default:
                 - behatch:context:browser:
                     timeout: 1
                 - behatch:context:debug:
-                    screenshotDir: "."
+                    screenshotDir: '.'
                 - behatch:context:json:
                     evaluationMode: javascript
                 - behatch:context:rest
                 - behatch:context:system:
-                    root: "."
+                    root: '.'
                 - behatch:context:table
                 - behatch:context:xml
+            filters:
+                tags: '~@user'
     extensions:
         Behat\MinkExtension:
             base_url: 'http://localhost:8080'
-            files_path: 'tests/fixtures/files'
-            goutte: ~
-            selenium2:
-                capabilities:
-                    chrome:
-                        switches:
-                            - "--headless"
-                            - "--disable-gpu"
-                            - "--no-sandbox"
-                    extra_capabilities:
-                        "goog:chromeOptions":
-                            w3c: false
+            files_path: '%paths.base%/tests/fixtures/files'
             browser_name: 'chrome'
             sessions:
                 default:
                     goutte: ~
                 symfony2:
-                    goutte: ~
+                    selenium2:
+                        capabilities:
+                            browser: 'chrome'
+                            browserName: 'chrome'
+                            chrome:
+                                switches:
+                                    - '--headless'
+                                    - '--disable-gpu'
+                                    - '--no-sandbox'
+                            extra_capabilities:
+                                "goog:chromeOptions":
+                                    w3c: false
         Behatch\Extension: ~
 
 symfony2:
+    suites:
+        default:
+            filters:
+                # Ignore @statusCode and @rest tags because Selenium2Driver does not support headers or status code (https://github.com/php-webdriver/php-webdriver/issues/811)
+                # Ignore @json and @xml tags because response is wrapped inside html tags
+                tags: '~@user&&~@statusCode&&~@rest&&~@json&&~@xml'
     extensions:
         Behat\MinkExtension:
-            default_session: symfony2
+            default_session: 'symfony2'
