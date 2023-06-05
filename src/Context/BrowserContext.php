@@ -200,7 +200,6 @@ class BrowserContext extends BaseContext
         $expected = str_replace('\\"', '"', $text);
         $message = "The text '$expected' was not found after a $count seconds timeout";
 
-        $found = false;
         do {
             try {
                 usleep(1000);
@@ -213,7 +212,7 @@ class BrowserContext extends BaseContext
             } catch (StaleElementReference $e) {
                 // assume page reloaded whilst we were still waiting
             }
-        } while (!$found && (time() - $startTime < $count));
+        } while (time() - $startTime < $count);
 
         // final assertion...
         $node = $this->getSession()->getPage()->find('css', $element);
