@@ -11,7 +11,7 @@ class SystemContext implements Context
     private $output = null;
     private $lastExecutionTime;
     private $lastReturnCode = null;
-    private $createdFiles;
+    private $createdFiles = [];
 
     public function __construct($root = '.')
     {
