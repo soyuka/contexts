@@ -98,7 +98,7 @@ class RestContext extends BaseContext
     {
         $actual = $this->request->getContent();
         $message = "The response of the current page is not empty, it is: $actual";
-        $this->assertTrue(null === $actual || '' === $actual, $message);
+        $this->assertTrue('' === $actual, $message);
     }
 
     /**
