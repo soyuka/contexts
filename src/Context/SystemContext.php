@@ -8,9 +8,9 @@ use Behat\Gherkin\Node\PyStringNode;
 class SystemContext implements Context
 {
     private $root;
-    private $output = null;
+    private ?array $output = null;
     private $lastExecutionTime;
-    private $lastReturnCode = null;
+    private ?int $lastReturnCode = null;
     private $createdFiles = [];
 
     public function __construct($root = '.')
