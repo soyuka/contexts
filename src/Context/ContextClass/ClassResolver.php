@@ -8,7 +8,7 @@ class ClassResolver implements BaseClassResolver
 {
     public function supportsClass($contextClass)
     {
-        return 0 === strpos($contextClass, 'behatch:context:');
+        return str_starts_with($contextClass, 'behatch:context:');
     }
 
     public function resolveClass($contextClass)

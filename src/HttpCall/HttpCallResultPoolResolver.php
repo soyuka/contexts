@@ -13,7 +13,7 @@ class HttpCallResultPoolResolver implements ArgumentResolver
         $this->dependencies = [];
 
         foreach (\func_get_args() as $param) {
-            $this->dependencies[\get_class($param)] = $param;
+            $this->dependencies[$param::class] = $param;
         }
     }
 
