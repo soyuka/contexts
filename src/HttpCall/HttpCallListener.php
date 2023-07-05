@@ -51,11 +51,9 @@ class HttpCallListener implements EventSubscriberInterface
         // For now to avoid modification on MinkContext
         // We add fallback on Mink
         try {
-            if ($this->mink->getSession()->isStarted()) {
-                $this->httpCallResultPool->store(
-                    new HttpCallResult($this->mink->getSession()->getPage()->getContent())
-                );
-            }
+            $this->httpCallResultPool->store(
+                new HttpCallResult($this->mink->getSession()->getPage()->getContent())
+            );
         } catch (\LogicException $e) {
             // Mink has no response
         } catch (\Behat\Mink\Exception\DriverException $e) {
