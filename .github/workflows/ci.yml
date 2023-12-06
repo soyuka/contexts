@@ -19,6 +19,7 @@ jobs:
       matrix:
         php:
           - '8.1'
+          - '8.2'
       fail-fast: false
     steps:
       - name: Checkout
@@ -41,6 +42,7 @@ jobs:
        matrix:
          php:
            - '8.1'
+           - '8.2'
        fail-fast: false
      env:
        APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
@@ -85,6 +87,7 @@ jobs:
       matrix:
         php:
           - '8.1'
+          - '8.2'
       fail-fast: false
     timeout-minutes: 20
     steps:
@@ -111,9 +114,7 @@ jobs:
         run: composer update --no-interaction --no-progress --ansi
       - name: Run tests
         run: ./bin/atoum
-
   # See https://github.com/SeleniumHQ/selenium/issues/9044
-  # See
   behat:
     name: Behat
     runs-on: ubuntu-22.04
@@ -129,11 +130,6 @@ jobs:
       DISPLAY: ':99'
     steps:
       - uses: actions/checkout@v3
-      - uses: nanasess/setup-chromedriver@v1
-      - name: Setup
-        run: |
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -141,11 +137,18 @@ jobs:
           tools: pecl, composer
           extensions: intl, bcmath, curl, openssl, mbstring
           coverage: pcov
-          ini-values: memory_limit=-1
-      - name: Run selenium
-        run: java -jar $SELENIUM_JAR_PATH standalone &
-      - name: Run php fixtures server
-        run: php -S localhost:8080 -t tests/fixtures/www &> ./fixtures.log &
+          ini-values: memory_limit=-1,display_errors=1,error_reporting=-1
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '8'
+      - name: Run Selenium
+        run: |
+          wget "https://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar" -O selenium.jar
+          java -jar selenium.jar -debug &> /dev/null &
+      - name: Run PHP fixtures server
+        run: php -S localhost:8080 -t tests/fixtures/www &> /dev/null &
       - name: Get composer cache directory
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -157,5 +160,10 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
       - name: Update project dependencies
         run: composer update --no-interaction --no-progress --ansi
+      - name: Wait for browser & PHP to start
+        run: |
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for Selenium to start...; sleep 1; done
+          while ! nc -z localhost 8080 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
+        timeout-minutes: 1
       - name: Run behat tests
         run: ./bin/behat -fprogress --no-interaction --profile=${{ matrix.profile }}
