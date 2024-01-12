@@ -48,11 +48,6 @@ class HttpCallListener implements EventSubscriberInterface
             return true;
         }
 
-        // Session can be stopped. Ex: using SystemContext
-        if (!$this->mink->getSession()->isStarted()) {
-            return;
-        }
-
         // For now to avoid modification on MinkContext
         // We add fallback on Mink
         try {
@@ -63,6 +58,8 @@ class HttpCallListener implements EventSubscriberInterface
             // Mink has no response
         } catch (\Behat\Mink\Exception\DriverException $e) {
             // No Mink
+        } catch (\WebDriver\Exception\NoSuchDriver $e) {
+            // A session is either terminated or not started
         }
     }
 }
