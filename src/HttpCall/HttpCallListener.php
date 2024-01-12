@@ -58,6 +58,8 @@ class HttpCallListener implements EventSubscriberInterface
             // Mink has no response
         } catch (\Behat\Mink\Exception\DriverException $e) {
             // No Mink
+        } catch (\WebDriver\Exception\NoSuchDriver $e) {
+            // A session is either terminated or not started
         }
     }
 }
