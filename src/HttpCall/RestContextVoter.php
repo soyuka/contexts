@@ -6,11 +6,11 @@ class RestContextVoter implements ContextSupportedVoter, FilterableHttpCallResul
 {
     public function vote(HttpCallResult $httpCallResult)
     {
-        return $httpCallResult->getValue() instanceof \Behat\Mink\Element\DocumentElement;
+        return $httpCallResult->getValue() instanceof \Behat\Mink\Element\DocumentElement || is_string($httpCallResult->getValue());
     }
 
     public function filter(HttpCallResult $httpCallResult)
     {
-        return $httpCallResult->getValue()->getContent();
+        return is_string($httpCallResult->getValue()) ? $httpCallResult->getValue() : $httpCallResult->getValue()->getContent();
     }
 }
