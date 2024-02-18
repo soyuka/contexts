@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -48,7 +48,7 @@ jobs:
        APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
      steps:
        - name: Checkout
-         uses: actions/checkout@v3
+         uses: actions/checkout@v4
        - name: Setup PHP
          uses: shivammathur/setup-php@v2
          with:
@@ -61,7 +61,7 @@ jobs:
          id: composercache
          run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
        - name: Cache dependencies
-         uses: actions/cache@v3
+         uses: actions/cache@v4
          with:
            path: ${{ steps.composercache.outputs.dir }}
            key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -69,7 +69,7 @@ jobs:
        - name: Update project dependencies
          run: composer update --no-interaction --no-progress --ansi
        - name: Cache PHPStan results
-         uses: actions/cache@v3
+         uses: actions/cache@v4
          with:
            path: /tmp/phpstan
            key: phpstan-php${{ matrix.php }}-${{ github.sha }}
@@ -92,7 +92,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -105,7 +105,7 @@ jobs:
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
@@ -129,7 +129,7 @@ jobs:
     env:
       DISPLAY: ':99'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -153,7 +153,7 @@ jobs:
         id: composercache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
