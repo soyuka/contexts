@@ -24,7 +24,7 @@ class RestContext extends BaseContext
      *
      * @Given (I )send a :method request to :url
      */
-    public function iSendARequestTo($method, $url, PyStringNode $body = null, $files = [])
+    public function iSendARequestTo($method, $url, ?PyStringNode $body = null, $files = [])
     {
         return $this->request->send(
             $method,
