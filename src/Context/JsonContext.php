@@ -209,7 +209,13 @@ class JsonContext extends BaseContext
 
         $actual = $this->inspector->evaluate($json, $node);
 
-        $this->assertContains($text, (string) $actual);
+        $printedActual = \strlen($actual) > 50 ? substr($actual, 0, 50).'[…]' : $actual;
+
+        $this->assertContains(
+            $text,
+            (string) $actual,
+            'The node "'.$node.'" does not contain the expected text "'.$text.'" (found "'.$printedActual.'")'
+        );
     }
 
     /**
@@ -233,7 +239,13 @@ class JsonContext extends BaseContext
 
         $actual = $this->inspector->evaluate($json, $node);
 
-        $this->assertNotContains($text, (string) $actual);
+        $printedActual = \strlen($actual) > 50 ? substr($actual, 0, 50).'[…]' : $actual;
+
+        $this->assertNotContains(
+            $text,
+            (string) $actual,
+            'The node "'.$node.'" does contain "'.$text.'" while it should not (found "'.$printedActual.'")'
+        );
     }
 
     /**
