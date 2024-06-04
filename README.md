@@ -1,10 +1,7 @@
 Behatch contexts
 ================
 
-[![Build status](https://travis-ci.org/Behatch/contexts.svg?branch=master)](https://travis-ci.org/Behatch/contexts)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Behatch/contexts/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Behatch/contexts/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/Behatch/contexts/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Behatch/contexts/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ed08ea06-93c2-4b90-b65b-4364302b5108/mini.png)](https://insight.sensiolabs.com/projects/ed08ea06-93c2-4b90-b65b-4364302b5108)
+[![CI](https://github.com/soyuka/contexts/actions/workflows/ci.yml/badge.svg)](https://github.com/soyuka/contexts/actions/workflows/ci.yml)
 
 Behatch contexts provide most common Behat tests.
 
@@ -45,7 +42,7 @@ $ php composer.phar create-project behatch/skeleton
 ```
 
 Browser, json, table and rest step need a mink configuration, see [Mink
-extension](https://github.com/Behat/MinkExtension) for more information.
+extension](https://github.com/FriendsOfBehat/MinkExtension) for more information.
 
 Usage
 -----
@@ -98,8 +95,3 @@ default:
                 - behatch:context:debug:
                     screenshotDir: "var"
 ```
-
-Translation
------------
-
-[![See more information on Transifex.com](https://www.transifex.com/projects/p/behatch-contexts/resource/enxliff/chart/image_png)](https://www.transifex.com/projects/p/behatch-contexts/)
