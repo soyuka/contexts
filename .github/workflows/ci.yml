@@ -169,4 +169,4 @@ jobs:
           while ! nc -z localhost 8080 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
         timeout-minutes: 1
       - name: Run behat tests
-        run: ./bin/behat -fprogress --no-interaction --profile=${{ matrix.profile }}
+        run: ./bin/behat -fprogress --no-interaction --profile=${{ matrix.profile }} --strict

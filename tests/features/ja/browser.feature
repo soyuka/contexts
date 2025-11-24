@@ -9,7 +9,7 @@
     @javascript
     シナリオ: Testing simple web access
        前提 "/index.html" を表示している
-        ならば　画面に "Congratulations, you've correctly set up your apache environment." と表示されていること
+        ならば 画面に "Congratulations, you've correctly set up your apache environment." と表示されていること
 
     @statusCode
     シナリオ: Basic authentication
@@ -65,9 +65,9 @@
         ならば 私が"timeout"を見るまで3秒間待つ
         かつ 私が1秒間待つ
         かつ 私が"#iframe"要素を見るまで待つ
-        かつ　私が "#iframe" 要素を見るまで 5 秒間待つ
-        かつ　私が "#iframe" 要素を見るまで 5 秒待つ
-        かつ　"#iframe" 要素を見るまで 5 秒待つ
+        かつ 私が "#iframe" 要素を見るまで 5 秒間待つ
+        かつ 私が "#iframe" 要素を見るまで 5 秒待つ
+        かつ "#iframe" 要素を見るまで 5 秒待つ
 
     @javascript
     シナリオ: Check element visibility
