@@ -4,7 +4,7 @@ namespace Behatch\Json;
 
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
-class Json
+class Json implements \Stringable
 {
     protected $content;
 
@@ -45,7 +45,7 @@ class Json
         return json_encode($this->content, $flags);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->encode(false);
     }

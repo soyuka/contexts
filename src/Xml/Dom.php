@@ -2,7 +2,7 @@
 
 namespace Behatch\Xml;
 
-class Dom
+class Dom implements \Stringable
 {
     private $dom;
 
@@ -16,7 +16,7 @@ class Dom
         $this->throwError();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $this->dom->formatOutput = true;
 
