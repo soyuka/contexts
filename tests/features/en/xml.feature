@@ -1,3 +1,4 @@
+# language: en
 @xml
 Feature: Testing XmlContext
 

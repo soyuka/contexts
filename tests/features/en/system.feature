@@ -1,3 +1,4 @@
+# language: en
 Feature: System feature
 
     Scenario: Testing execution

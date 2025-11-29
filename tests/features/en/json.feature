@@ -1,3 +1,4 @@
+# language: en
 @json
 Feature: Testing JSONContext
 

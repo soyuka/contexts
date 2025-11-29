@@ -1,3 +1,4 @@
+# language: en
 Feature: Browser Feature
 
     Scenario: Testing access to /table/index.html

@@ -1,3 +1,4 @@
+# language: en
 @rest
 Feature: Testing RESTContext
 
