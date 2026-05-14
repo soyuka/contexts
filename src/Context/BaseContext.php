@@ -10,9 +10,9 @@ abstract class BaseContext extends RawMinkContext implements TranslatableContext
     use \Behatch\Asserter;
     use \Behatch\Html;
 
-    public static function getTranslationResources()
+    public static function getTranslationResources(): array
     {
-        return glob(__DIR__.'/../../i18n/*.xliff');
+        return glob(__DIR__.'/../../i18n/*.xliff') ?: [];
     }
 
     /**
