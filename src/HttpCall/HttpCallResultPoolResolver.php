@@ -17,7 +17,7 @@ class HttpCallResultPoolResolver implements ArgumentResolver
         }
     }
 
-    public function resolveArguments(\ReflectionClass $classReflection, array $arguments)
+    public function resolveArguments(\ReflectionClass $classReflection, array $arguments): array
     {
         if (null !== ($constructor = $classReflection->getConstructor())) {
             foreach ($constructor->getParameters() as $parameter) {

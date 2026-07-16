@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class Extension implements ExtensionInterface
 {
-    public function getConfigKey()
+    public function getConfigKey(): string
     {
         return 'behatch';
     }
