@@ -3,14 +3,14 @@
 namespace Behatch\Context;
 
 use Behat\Gherkin\Node\TableNode;
+use Behat\Step\Then;
 
 class TableContext extends BaseContext
 {
     /**
      * Checks that the specified table's columns match the given schema.
-     *
-     * @Then the columns schema of the :table table should match:
      */
+    #[Then('the columns schema of the :table table should match:')]
     public function theColumnsSchemaShouldMatch(string $table, TableNode $text): void
     {
         $columnsSelector = "$table thead tr th";
@@ -25,9 +25,8 @@ class TableContext extends BaseContext
 
     /**
      * Checks that the specified table contains the given number of columns.
-     *
-     * @Then (I )should see :count column(s) in the :table table
      */
+    #[Then('(I )should see :count column(s) in the :table table')]
     public function iShouldSeeColumnsInTheTable(int $count, string $table): void
     {
         $columnsSelector = "$table thead tr th";
@@ -38,9 +37,8 @@ class TableContext extends BaseContext
 
     /**
      * Checks that the specified table contains the specified number of rows in its body.
-     *
-     * @Then (I )should see :count rows in the :index :table table
      */
+    #[Then('(I )should see :count rows in the :index :table table')]
     public function iShouldSeeRowsInTheNthTable(int $count, int $index, string $table): void
     {
         $actual = $this->countElements('tbody tr', $index, $table);
@@ -49,9 +47,8 @@ class TableContext extends BaseContext
 
     /**
      * Checks that the specified table contains the specified number of rows in its body.
-     *
-     * @Then (I )should see :count row(s) in the :table table
      */
+    #[Then('(I )should see :count row(s) in the :table table')]
     public function iShouldSeeRowsInTheTable(int $count, string $table): void
     {
         $this->iShouldSeeRowsInTheNthTable($count, 1, $table);
@@ -59,9 +56,8 @@ class TableContext extends BaseContext
 
     /**
      * Checks that the data of the specified row matches the given schema.
-     *
-     * @Then the data in the :index row of the :table table should match:
      */
+    #[Then('the data in the :index row of the :table table should match:')]
     public function theDataOfTheRowShouldMatch(int $index, string $table, TableNode $text): void
     {
         $rowsSelector = "$table tbody tr";
@@ -87,9 +83,8 @@ class TableContext extends BaseContext
 
     /**
      * Checks that the specified cell (column/row) of the table's body contains the specified text.
-     *
-     * @Then the :colIndex column of the :rowIndex row in the :table table should contain :text
      */
+    #[Then('the :colIndex column of the :rowIndex row in the :table table should contain :text')]
     public function theStColumnOfTheStRowInTheTableShouldContain(int $colIndex, int $rowIndex, string $table, string $text): void
     {
         $rowSelector = "$table tbody tr";

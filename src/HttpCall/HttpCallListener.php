@@ -23,7 +23,7 @@ class HttpCallListener implements EventSubscriberInterface
         $this->mink = $mink;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             StepTested::AFTER => 'afterStep',

@@ -2,9 +2,11 @@
 
 namespace Behatch;
 
+use Behat\Mink\Session;
+
 trait Html
 {
-    abstract protected function getSession($name = null);
+    abstract public function getSession(?string $name = null): Session;
 
     protected function countElements($element, $index, $parent)
     {
