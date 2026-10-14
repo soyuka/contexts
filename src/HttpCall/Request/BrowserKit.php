@@ -2,9 +2,8 @@
 
 namespace Behatch\HttpCall\Request;
 
-use Behat\Mink\Driver\Goutte\Client as GoutteClient;
 use Behat\Mink\Mink;
-use Symfony\Component\BrowserKit\Client as BrowserKitClient;
+use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -96,7 +95,7 @@ class BrowserKit
             $client->setHeader($name, $value);
         } else {
             /**
-             * @var \Symfony\Component\BrowserKit\HttpBrowser $client
+             * @var HttpBrowser $client
              */
 
             /* taken from Behat\Mink\Driver\BrowserKitDriver::setRequestHeader */
@@ -147,11 +146,12 @@ class BrowserKit
 
     protected function resetHttpHeaders(): void
     {
-        /** @var GoutteClient|BrowserKitClient $client */
+        /** @var AbstractBrowser $client */
         $client = $this->mink->getSession()->getDriver()->getClient();
 
         $client->setServerParameters([]);
-        if ($client instanceof GoutteClient) {
+        // Goutte keeps the headers given to setHeader() until restart()
+        if (method_exists($client, 'setHeader')) {
             $client->restart();
         }
     }
