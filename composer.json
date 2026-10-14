@@ -16,13 +16,13 @@
     },
 
     "require-dev": {
-        "behat/mink-goutte-driver": "^1.1",
-        "guzzlehttp/guzzle": "^6.3",
+        "behat/mink-browserkit-driver": "^2.2",
         "behat/mink-selenium2-driver": "^1.6",
         "atoum/atoum": "^4.0",
-        "fabpot/goutte": "^3.2",
         "phpunit/phpunit": "^9.5",
-        "atoum/stubs": "^2.6"
+        "atoum/stubs": "^2.6",
+        "symfony/http-client": "^5.4|^6.4|^7.0|^8.0",
+        "symfony/mime": "^5.4|^6.4|^7.0|^8.0"
     },
 
     "autoload": {

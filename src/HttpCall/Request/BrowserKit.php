@@ -5,6 +5,7 @@ namespace Behatch\HttpCall\Request;
 use Behat\Mink\Driver\Goutte\Client as GoutteClient;
 use Behat\Mink\Mink;
 use Symfony\Component\BrowserKit\Client as BrowserKitClient;
+use Symfony\Component\BrowserKit\HttpBrowser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class BrowserKit
@@ -60,13 +61,16 @@ class BrowserKit
 
     public function send($method, $url, $parameters = [], $files = [], $content = null, $headers = [])
     {
+        $client = $this->mink->getSession()->getDriver()->getClient();
+
         foreach ($files as $originalName => &$file) {
             if (\is_string($file)) {
-                $file = new UploadedFile($file, (string) $originalName);
+                // HttpBrowser only reads files in the $_FILES format and silently drops UploadedFile instances
+                $file = $client instanceof HttpBrowser
+                    ? ['tmp_name' => $file, 'name' => basename($file)]
+                    : new UploadedFile($file, (string) $originalName);
             }
         }
-
-        $client = $this->mink->getSession()->getDriver()->getClient();
 
         $client->followRedirects(false);
 
