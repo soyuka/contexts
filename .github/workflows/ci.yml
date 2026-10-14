@@ -119,25 +119,50 @@ jobs:
         run: ./bin/atoum
   # See https://github.com/SeleniumHQ/selenium/issues/9044
   behat:
-    name: Behat
+    name: Behat (${{ matrix.deps }}, ${{ matrix.profile }})
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        php:
-          - '8.1'
+        deps:
+          - 'lowest'
+          - 'behat-3'
+          - 'behat-3-mink-3'
+          - 'behat-4'
         profile:
           - 'default'
           - 'symfony2'
+        include:
+          # browserkit_http exists since mink-extension 2.7.0, and 2.7.1 fixes its Selenium2 capabilities.
+          # Behat 3.17.0 does not find the i18n file of recent behat/gherkin versions.
+          - deps: 'lowest'
+            php: '8.1'
+            symfony: '5.4.*'
+            require: 'behat/behat:3.17.* behat/gherkin:~4.11.0 friends-of-behat/mink-extension:2.7.1'
+          - deps: 'behat-3'
+            php: '8.3'
+            symfony: '7.4.*'
+            require: 'behat/behat:^3.17'
+          # mink-extension 3.0.0-ALPHA.1 breaks the translations of MinkContext,
+          # fixed on its master branch (FriendsOfBehat/MinkExtension#65).
+          - deps: 'behat-3-mink-3'
+            php: '8.4'
+            symfony: '7.4.*'
+            require: 'behat/behat:^3.32 friends-of-behat/mink-extension:^3.0@dev'
+          - deps: 'behat-4'
+            php: '8.5'
+            symfony: '8.*'
+            require: 'behat/behat:^4.0 friends-of-behat/mink-extension:^3.0@dev'
       fail-fast: false
     env:
       DISPLAY: ':99'
+      SYMFONY_REQUIRE: ${{ matrix.symfony }}
     steps:
       - uses: actions/checkout@v6
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: pecl, composer
+          tools: pecl, composer, flex
           extensions: intl, bcmath, curl, openssl, mbstring
           coverage: pcov
           ini-values: memory_limit=-1,display_errors=1,error_reporting=-1
@@ -161,6 +186,8 @@ jobs:
           path: ${{ steps.composercache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-
+      - name: Pin dependencies
+        run: composer require --no-update --no-interaction --ansi ${{ matrix.require }}
       - name: Update project dependencies
         run: composer update --no-interaction --no-progress --ansi
       - name: Wait for browser & PHP to start
