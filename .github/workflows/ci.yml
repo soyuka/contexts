@@ -130,7 +130,7 @@ jobs:
           - 'behat-4'
         profile:
           - 'default'
-          - 'symfony2'
+          - 'selenium'
         include:
           # browserkit_http exists since mink-extension 2.7.0, and 2.7.1 fixes its Selenium2 capabilities.
           # Behat 3.17.0 does not find the i18n file of recent behat/gherkin versions.

@@ -18,7 +18,7 @@ return (new Config())
                 'default' => [
                     'browserkit_http' => null,
                 ],
-                'symfony2' => [
+                'selenium' => [
                     'selenium2' => [
                         'browser' => 'chrome',
                         'capabilities' => [
@@ -72,9 +72,9 @@ return (new Config())
             ->addContext('behatch:context:xml')
             ->withPaths('%paths.base%/tests/features')
             ->withFilter(new TagFilter('~@user'))))
-    ->withProfile((new Profile('symfony2'))
+    ->withProfile((new Profile('selenium'))
         ->withExtension(new Extension(MinkExtension::class, [
-            'default_session' => 'symfony2',
+            'default_session' => 'selenium',
         ]))
         ->withSuite((new Suite('default'))
             // Ignore @statusCode and @rest tags because Selenium2Driver does not support headers or status code (https://github.com/php-webdriver/php-webdriver/issues/811)
