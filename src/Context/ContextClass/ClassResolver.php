@@ -13,7 +13,7 @@ class ClassResolver implements BaseClassResolver
 
     public function resolveClass($contextClass): string
     {
-        $className = preg_replace_callback('/(^\w|:\w)/', function ($matches) {
+        $className = preg_replace_callback('/(^\w|:\w)/', static function ($matches) {
             return str_replace(':', '\\', strtoupper($matches[0]));
         }, $contextClass);
 

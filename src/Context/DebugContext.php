@@ -84,7 +84,7 @@ class DebugContext extends BaseContext
         $scenarios = $scope->getFeature()->getScenarios();
         foreach ($scenarios as $scenario) {
             $stepLinesInScenario = array_map(
-                function (StepNode $step) {
+                static function (StepNode $step) {
                     return $step->getLine();
                 },
                 $scenario->getSteps()
@@ -107,7 +107,7 @@ class DebugContext extends BaseContext
             return false;
         }
         $stepLinesInBackground = array_map(
-            function (StepNode $step) {
+            static function (StepNode $step) {
                 return $step->getLine();
             },
             $background->getSteps()

@@ -19,7 +19,7 @@ class JsonInspector extends \atoum
         $json = new \Behatch\Json\Json('{}');
         $inspector = $this->newTestedInstance('php');
 
-        $this->exception(function () use ($json, $inspector): void {
+        $this->exception(static function () use ($json, $inspector): void {
             $inspector->evaluate($json, 'foo.bar');
         })
         ->hasMessage("Failed to evaluate expression 'foo.bar'");

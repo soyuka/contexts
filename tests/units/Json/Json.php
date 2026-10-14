@@ -45,7 +45,7 @@ class Json extends \atoum
         $accessor = PropertyAccess::createPropertyAccessor();
         $json = $this->newTestedInstance('{"foo":"bar"}');
 
-        $this->exception(function () use ($json, $accessor): void {
+        $this->exception(static function () use ($json, $accessor): void {
             $json->read('jeanmarc', $accessor);
         })
         ->isInstanceOf('Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException');
