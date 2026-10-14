@@ -18,8 +18,8 @@ class JsonSchema extends \atoum
         $result = $resolver->resolveRef($file);
 
         // recent json-schema versions store the identifier as $id
-        $this->string($result->{'$id'} ?? $result->id)
-            ->isEqualTo($file);
+        $this->object($result)
+            ->isEqualTo((object) [isset($result->{'$id'}) ? '$id' : 'id' => $file]);
     }
 
     public function test_validate(): void
