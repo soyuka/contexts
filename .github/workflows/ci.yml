@@ -133,15 +133,14 @@ jobs:
           - 'selenium'
         include:
           # browserkit_http exists since mink-extension 2.7.0, and 2.7.1 fixes its Selenium2 capabilities.
-          # Behat 3.17.0 does not find the i18n file of recent behat/gherkin versions.
           - deps: 'lowest'
             php: '8.1'
             symfony: '5.4.*'
-            require: 'behat/behat:3.17.* behat/gherkin:~4.11.0 friends-of-behat/mink-extension:2.7.1'
+            require: 'behat/behat:3.20.* friends-of-behat/mink-extension:2.7.1'
           - deps: 'behat-3'
             php: '8.3'
             symfony: '7.4.*'
-            require: 'behat/behat:^3.17'
+            require: 'behat/behat:^3.20'
           # mink-extension 3.0.0-ALPHA.1 breaks the translations of MinkContext,
           # fixed on its master branch (FriendsOfBehat/MinkExtension#65).
           - deps: 'behat-3-mink-3'
