@@ -2,10 +2,16 @@
 
 namespace Behatch;
 
+use Behat\Mink\Session;
+
+/**
+ * No abstract getSession() here: no signature is compatible with both
+ * mink-extension 2 (untyped) and mink-extension 3 (typed).
+ *
+ * @method Session getSession(?string $name = null)
+ */
 trait Html
 {
-    abstract protected function getSession($name = null);
-
     protected function countElements($element, $index, $parent)
     {
         $page = $this->getSession()->getPage();

@@ -10,7 +10,8 @@ Installation
 
 This extension requires:
 
-* Behat 3+
+* PHP 8.1+
+* Behat 3.20+ or 4
 * Mink
 * Mink extension
 
@@ -23,7 +24,22 @@ This extension requires:
 $ composer require --dev soyuka/contexts
 ```
 
-3. Activate extension by specifying its class in your `behat.yml`:
+3. Activate extension by specifying its class in your `behat.php`:
+
+```php
+// behat.php
+use Behat\Config\Config;
+use Behat\Config\Extension;
+use Behat\Config\Profile;
+use Behatch\Extension as BehatchExtension;
+
+return (new Config())
+    ->withProfile((new Profile('default'))
+        // ...
+        ->withExtension(new Extension(BehatchExtension::class)));
+```
+
+Or in your `behat.yml` (Behat 3 only, Behat 4 reads PHP configuration only):
 
 ```yaml
 # behat.yml
@@ -47,7 +63,27 @@ extension](https://github.com/FriendsOfBehat/MinkExtension) for more information
 Usage
 -----
 
-In `behat.yml`, enable desired contexts:
+In `behat.php`, enable desired contexts:
+
+```php
+// behat.php
+use Behat\Config\Config;
+use Behat\Config\Profile;
+use Behat\Config\Suite;
+
+return (new Config())
+    ->withProfile((new Profile('default'))
+        ->withSuite((new Suite('default'))
+            ->addContext('behatch:context:browser')
+            ->addContext('behatch:context:debug')
+            ->addContext('behatch:context:system')
+            ->addContext('behatch:context:json')
+            ->addContext('behatch:context:table')
+            ->addContext('behatch:context:rest')
+            ->addContext('behatch:context:xml')));
+```
+
+Or in `behat.yml`:
 
 ```yaml
 default:
@@ -86,6 +122,13 @@ Configuration
 ### Configuration Example
 
 For example, if you want to change default directory to screenshots - you can do it this way:
+
+```php
+(new Suite('default'))
+    ->addContext('behatch:context:debug', [
+        'screenshotDir' => 'var',
+    ])
+```
 
 ```yaml
 default:

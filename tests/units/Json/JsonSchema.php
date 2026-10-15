@@ -14,12 +14,12 @@ class JsonSchema extends \atoum
     public function test_resolve_with_uri(): void
     {
         $file = 'file://'.__DIR__.'/../../fixtures/files/schema.json';
-        $schema = (object) ['id' => $file];
         $resolver = new \JsonSchema\SchemaStorage(new \JsonSchema\Uri\UriRetriever(), new \JsonSchema\Uri\UriResolver());
         $result = $resolver->resolveRef($file);
 
+        // recent json-schema versions store the identifier as $id
         $this->object($result)
-            ->isEqualTo($schema);
+            ->isEqualTo((object) [isset($result->{'$id'}) ? '$id' : 'id' => $file]);
     }
 
     public function test_validate(): void
@@ -38,7 +38,7 @@ class JsonSchema extends \atoum
         $schema = $this->newTestedInstance('{ "type": "object", "properties": {}, "additionalProperties": false }');
         $json = new \Behatch\Json\Json('{ "foo": { "bar": "foobar" } }');
         $validator = new \JsonSchema\Validator();
-        $this->exception(function () use ($schema, $json, $validator): void {
+        $this->exception(static function () use ($schema, $json, $validator): void {
             $schema->validate($json, $validator);
         })
         ->hasMessage(<<<EOD
