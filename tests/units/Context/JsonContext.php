@@ -272,4 +272,26 @@ class JsonContext extends \atoum
             })
                 ->hasMessage("The node 'invalid key' does not exist.");
     }
+
+    public function testTheJsonNodeShouldHaveElements(): void
+    {
+        $this
+            ->given($this->newTestedInstance($this->httpCallResultPool))
+                ->and($this->testedInstance->setMink($this->mink))
+            ->then
+
+            ->if($this->testedInstance->theJsonNodeShouldHaveElements('an array node', 3))
+
+            ->exception(function (): void {
+                $this->testedInstance->theJsonNodeShouldHaveElements('an array node', 2);
+            })
+                ->isInstanceOf(ExpectationException::class)
+                ->hasMessage("The node 'an array node' contains 3 element(s), 2 expected.")
+
+            ->exception(function (): void {
+                $this->testedInstance->theJsonNodeShouldHaveElements('an array node', 5);
+            })
+                ->isInstanceOf(ExpectationException::class)
+                ->hasMessage("The node 'an array node' contains 3 element(s), 5 expected.");
+    }
 }

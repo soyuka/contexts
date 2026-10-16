@@ -196,7 +196,13 @@ class JsonContext extends BaseContext
 
         $actual = $this->inspector->evaluate($json, $node);
 
-        $this->assertSame($count, \count((array) $actual));
+        $actualCount = \count((array) $actual);
+
+        $this->assertSame(
+            $count,
+            $actualCount,
+            \sprintf("The node '%s' contains %d element(s), %d expected.", $node, $actualCount, $count)
+        );
     }
 
     /**
