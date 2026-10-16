@@ -143,7 +143,7 @@ class SystemContext implements Context
     {
         $expected = $string->getStrings();
         foreach ($this->output as $index => $line) {
-            if ($line !== $expected[$index]) {
+            if ($line !== ($expected[$index] ?? null)) {
                 throw new \Exception(\sprintf("instead of\n%s", implode("\n", $this->output)));
             }
         }
@@ -156,7 +156,7 @@ class SystemContext implements Context
 
         $check = false;
         foreach ($this->output as $index => $line) {
-            if ($line !== $expected[$index]) {
+            if ($line !== ($expected[$index] ?? null)) {
                 $check = true;
                 break;
             }
