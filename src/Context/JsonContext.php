@@ -201,7 +201,7 @@ class JsonContext extends BaseContext
         $this->assertSame(
             $count,
             $actualCount,
-            'The node "'.$node.'" contains '.$actualCount.' elements ('.$count.' expected).'
+            \sprintf("The node '%s' contains %d element(s), %d expected.", $node, $actualCount, $count)
         );
     }
 
