@@ -207,9 +207,13 @@ class JsonContext extends BaseContext
     {
         $json = $this->getJson();
 
-        $actual = $this->inspector->evaluate($json, $node);
+        $actual = (string) $this->inspector->evaluate($json, $node);
 
-        $this->assertContains($text, (string) $actual);
+        $this->assertContains(
+            $text,
+            $actual,
+            \sprintf("The node '%s' should contain '%s', but it is '%s'.", $node, $text, $actual)
+        );
     }
 
     /**
@@ -231,9 +235,13 @@ class JsonContext extends BaseContext
     {
         $json = $this->getJson();
 
-        $actual = $this->inspector->evaluate($json, $node);
+        $actual = (string) $this->inspector->evaluate($json, $node);
 
-        $this->assertNotContains($text, (string) $actual);
+        $this->assertNotContains(
+            $text,
+            $actual,
+            \sprintf("The node '%s' should not contain '%s', but it is '%s'.", $node, $text, $actual)
+        );
     }
 
     /**
