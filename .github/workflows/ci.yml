@@ -15,22 +15,13 @@ jobs:
   php-cs-fixer:
     name: PHP-CS-Fixer
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php:
-          - '8.1'
-          - '8.2'
-          - '8.3'
-          - '8.4'
-          - '8.5'
-      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.1'
           extensions: intl, bcmath, curl, openssl, mbstring
           ini-values: memory_limit=-1
           tools: pecl, composer, php-cs-fixer
@@ -50,8 +41,6 @@ jobs:
            - '8.4'
            - '8.5'
        fail-fast: false
-     env:
-       APP_DEBUG: '1' # https://github.com/phpstan/phpstan-symfony/issues/37
      steps:
        - name: Checkout
          uses: actions/checkout@v6
@@ -84,7 +73,7 @@ jobs:
              phpstan-
          continue-on-error: true
        - name: Run PHPStan analysis
-         run: phpstan analyse --no-interaction --no-progress --no-interaction --ansi
+         run: phpstan analyse --no-interaction --no-progress --ansi
 
   atoum:
     name: Atoum
