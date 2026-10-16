@@ -69,10 +69,13 @@ class DebugContext extends BaseContext
     private function displayProfilerLink(): void
     {
         try {
-            $headers = $this->getMink()->getSession()->getResponseHeaders();
-            echo "The debug profile URL {$headers['X-Debug-Token-Link'][0]}";
+            $link = $this->getMink()->getSession()->getResponseHeader('X-Debug-Token-Link');
         } catch (\Exception $e) {
-            /* Intentionally leave blank */
+            return;
+        }
+
+        if (null !== $link) {
+            echo "The debug profile URL $link";
         }
     }
 
