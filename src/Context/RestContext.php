@@ -247,9 +247,17 @@ class RestContext extends BaseContext
 
         $headers = '';
         foreach ($this->request->getServer() as $name => $value) {
-            if ('HTTP_' !== substr($name, 0, 5) && 'HTTPS' !== $name) {
-                $headers .= " -H '$name: $value'";
+            if (null === $value) {
+                continue;
             }
+            // CONTENT_* are not prefixed with HTTP_ in PHP when building $_SERVER
+            if ('HTTP_' === substr($name, 0, 5)) {
+                $name = substr($name, 5);
+            } elseif (!\in_array($name, ['CONTENT_TYPE', 'CONTENT_LENGTH', 'CONTENT_MD5'], true)) {
+                continue;
+            }
+            $name = ucwords(strtolower(str_replace('_', '-', $name)), '-');
+            $headers .= " -H '$name: $value'";
         }
 
         $data = '';
