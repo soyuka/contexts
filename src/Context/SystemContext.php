@@ -65,7 +65,7 @@ class SystemContext implements Context
     public function commandShouldSucceed(): void
     {
         if (0 !== $this->lastReturnCode) {
-            throw new \Exception(\sprintf('Command should succeed %b', $this->lastReturnCode));
+            throw new \Exception(\sprintf('Command should succeed %d', $this->lastReturnCode));
         }
     }
 
@@ -76,7 +76,7 @@ class SystemContext implements Context
     public function commandShouldFail(): void
     {
         if (0 === $this->lastReturnCode) {
-            throw new \Exception(\sprintf('Command should fail %b', $this->lastReturnCode));
+            throw new \Exception(\sprintf('Command should fail %d', $this->lastReturnCode));
         }
     }
 
@@ -143,7 +143,7 @@ class SystemContext implements Context
     {
         $expected = $string->getStrings();
         foreach ($this->output as $index => $line) {
-            if ($line !== $expected[$index]) {
+            if ($line !== ($expected[$index] ?? null)) {
                 throw new \Exception(\sprintf("instead of\n%s", implode("\n", $this->output)));
             }
         }
@@ -156,7 +156,7 @@ class SystemContext implements Context
 
         $check = false;
         foreach ($this->output as $index => $line) {
-            if ($line !== $expected[$index]) {
+            if ($line !== ($expected[$index] ?? null)) {
                 $check = true;
                 break;
             }
