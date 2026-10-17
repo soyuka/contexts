@@ -3,54 +3,20 @@
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__)
-    ->exclude([
-        'src/Core/Bridge/Symfony/Maker/Resources/skeleton',
-        'tests/Fixtures/app/var',
-        'tests/Fixtures/Symfony/Maker',
-    ])
-    ->notPath('src/Symfony/Bundle/DependencyInjection/Configuration.php')
-    ->notPath('src/Annotation/ApiFilter.php') // temporary
-    ->notPath('src/Annotation/ApiProperty.php') // temporary
-    ->notPath('src/Annotation/ApiResource.php') // temporary
-    ->notPath('src/Annotation/ApiSubresource.php') // temporary
-    ->notPath('tests/Fixtures/TestBundle/Entity/DummyPhp8.php') // temporary
-    ->append([
-        'tests/Fixtures/app/console',
-    ]);
-
-$defaultIgnoreTags = (new PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationSpacesFixer())
-    ->getConfigurationDefinition()
-    ->resolve([])['ignored_tags'] ?? []
-;
+    ->in(__DIR__);
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@DoctrineAnnotation' => true,
-        '@PHP71Migration' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHPUnit60Migration:risky' => true,
+        '@PHP7x1Migration' => true,
+        '@PHP7x1Migration:risky' => true,
+        '@PHPUnit6x0Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
         'align_multiline_comment' => [
             'comment_type' => 'phpdocs_like',
         ],
         'array_indentation' => true,
-        'compact_nullable_typehint' => true,
-        'doctrine_annotation_array_assignment' => [
-            'operator' => '=',
-        ],
-        'doctrine_annotation_spaces' => [
-            'after_array_assignments_equals' => false,
-            'before_array_assignments_equals' => false,
-            'ignored_tags' => array_merge($defaultIgnoreTags, [
-                // Behat step tags
-                'Given',
-                'When',
-                'Then',
-            ]),
-        ],
         'explicit_indirect_variable' => true,
         'fully_qualified_strict_types' => true,
         'logical_operators' => true,
@@ -104,13 +70,6 @@ return (new PhpCsFixer\Config())
         'phpdoc_var_annotation_correct_order' => true,
         'return_assignment' => true,
         'strict_param' => true,
-        'visibility_required' => [
-            'elements' => [
-                'const',
-                'method',
-                'property',
-            ],
-        ],
         'declare_strict_types' => false,
     ])
     ->setFinder($finder);
